@@ -56,20 +56,20 @@ function DoomScrollCounter() {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16 text-center">
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 pt-20 pb-8 text-center md:pt-24 md:pb-10">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(57,255,20,0.08),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(255,46,151,0.08),transparent_24%),linear-gradient(180deg,rgba(17,17,40,0.45),transparent_35%)]" />
       <motion.div
         initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center"
+        className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center"
       >
-        <div className="mb-6">
+        <div className="mb-2 md:mb-3">
           <video
             autoPlay
             muted
             playsInline
-            className="mx-auto h-[320px] w-[200px] object-contain"
+            className="mx-auto h-[220px] w-[155px] object-contain md:h-[260px] md:w-[175px]"
             style={{
               maskImage:
                 "radial-gradient(ellipse 85% 85% at center, black 60%, transparent 100%)",
@@ -81,14 +81,14 @@ function Hero() {
           />
         </div>
 
-        <h1 className="font-heading text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+        <h1 className="font-heading text-5xl font-bold tracking-tight sm:text-6xl md:text-[4.5rem]">
           <span className="text-neon-green text-glow-green">SCROLL</span>
           <span className="text-hot-pink text-glow-pink">TOLL</span>
         </h1>
 
         <DoomScrollCounter />
 
-        <p className="max-w-3xl font-heading text-3xl leading-tight text-white sm:text-4xl">
+        <p className="max-w-3xl font-heading text-[2.3rem] leading-tight text-white sm:text-4xl">
           Your doom scrolling just fed someone.
         </p>
         <p className="mt-5 max-w-2xl text-base leading-7 text-gray-400 sm:text-lg">
@@ -98,7 +98,7 @@ function Hero() {
 
         <a
           href="#waitlist"
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-neon-green px-8 py-4 font-heading text-lg font-bold text-black transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(57,255,20,0.45)]"
+          className="mt-7 inline-flex items-center gap-2 rounded-full bg-neon-green px-8 py-4 font-heading text-lg font-bold text-black transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(57,255,20,0.45)]"
         >
           JOIN THE WAITLIST &rarr;
         </a>
@@ -112,7 +112,7 @@ function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 md:bottom-6"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -301,13 +301,14 @@ function ScreenTimeCalculator() {
 
 function PhoneMockup() {
   return (
-    <section className="px-6 py-16 md:px-10 md:py-24">
+    <section className="relative overflow-hidden px-6 py-16 md:px-10 md:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(57,255,20,0.08),transparent_18%),radial-gradient(circle_at_70%_20%,rgba(191,0,255,0.08),transparent_20%)]" />
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mx-auto max-w-4xl text-center"
+        className="relative mx-auto max-w-4xl rounded-[2rem] border border-white/8 bg-[#0a0a14]/70 px-6 py-12 text-center"
       >
         <p className="mb-4 font-mono text-sm uppercase tracking-[0.3em] text-neon-green">
           WHEN THE TROLL APPEARS
@@ -317,7 +318,7 @@ function PhoneMockup() {
         </h2>
 
         <div className="flex justify-center">
-          <div className="relative h-[560px] w-[280px] rounded-[40px] border-4 border-gray-700 bg-black p-3 shadow-[0_0_60px_rgba(57,255,20,0.15)]">
+          <div className="relative h-[560px] w-[280px] rounded-[40px] border-4 border-gray-700 bg-black p-3 shadow-[0_0_40px_rgba(57,255,20,0.12)]">
             <div className="absolute top-0 left-1/2 z-10 h-6 w-32 -translate-x-1/2 rounded-b-2xl bg-black" />
 
             <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-[30px] bg-black px-4">
