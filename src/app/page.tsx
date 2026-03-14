@@ -39,8 +39,7 @@ function Hero() {
       style={{ opacity, scale, y }}
       className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-neon-green/5 via-transparent to-transparent" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-neon-green/5 blur-[120px] animate-glow-pulse" />
+      <div className="absolute inset-0 bg-transparent" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
