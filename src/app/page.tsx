@@ -48,25 +48,17 @@ function Hero() {
         transition={{ duration: 1, delay: 0.5 }}
         className="relative z-10"
       >
-        <motion.div
-          animate={{
-            y: [0, -8, 0],
-            rotate: [-1, 1, -1],
-            scale: [1, 1.02, 1],
-          }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="mb-6 relative"
-        >
+        <div className="mb-6 relative">
           <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
-          <Image
-            src="/troll.png"
-            alt="ScrollToll Troll"
-            width={180}
-            height={180}
-            className="relative z-10 drop-shadow-[0_0_40px_rgba(57,255,20,0.5)] drop-shadow-[0_0_80px_rgba(57,255,20,0.2)]"
-            priority
+          <video
+            autoPlay
+            muted
+            playsInline
+            className="relative z-10 w-[220px] h-[350px] object-contain drop-shadow-[0_0_40px_rgba(57,255,20,0.4)]"
+            src="/troll2.mp4"
+            poster="/troll.png"
           />
-        </motion.div>
+        </div>
 
         <h1 className="font-heading font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-4">
           <span className="text-neon-green text-glow-green">SCROLL</span>
