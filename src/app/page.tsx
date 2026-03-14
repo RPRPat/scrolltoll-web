@@ -39,21 +39,18 @@ function Hero() {
       style={{ opacity, scale, y }}
       className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-transparent" />
-
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
         className="relative z-10"
       >
-        <div className="mb-6 relative">
+        <div className="mb-6">
           <video
             autoPlay
             muted
-            loop
             playsInline
-            className="relative z-10 w-[220px] h-[350px] object-contain"
+            className="w-[220px] h-[350px] object-contain mx-auto"
             src="/troll2.mp4"
             poster="/troll.png"
           />
