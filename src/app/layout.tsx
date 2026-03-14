@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "ScrollToll — Your Doom Scrolling Feeds the World",
   description:
     "The app that turns your worst screen time habit into charitable donations. Set a limit, blow past it, pay the toll, change a life.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "ScrollToll — Your Doom Scrolling Feeds the World",
     description: "The app that turns your worst screen time habit into charitable donations.",
