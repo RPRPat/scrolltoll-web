@@ -59,7 +59,7 @@ function Hero() {
         >
           <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
           <Image
-            src="/troll.png"
+            src="/Troll.png"
             alt="ScrollToll Troll"
             width={180}
             height={180}
@@ -520,7 +520,7 @@ function Close() {
           >
             <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
             <Image
-              src="/troll.png"
+              src="/Troll.png"
               alt="ScrollToll Troll"
               width={140}
               height={140}
