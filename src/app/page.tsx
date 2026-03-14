@@ -49,12 +49,12 @@ function Hero() {
         className="relative z-10"
       >
         <div className="mb-6 relative">
-          <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
           <video
             autoPlay
             muted
+            loop
             playsInline
-            className="relative z-10 w-[220px] h-[350px] object-contain drop-shadow-[0_0_40px_rgba(57,255,20,0.4)]"
+            className="relative z-10 w-[220px] h-[350px] object-contain"
             src="/troll2.mp4"
             poster="/troll.png"
           />
