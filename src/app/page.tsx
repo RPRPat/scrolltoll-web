@@ -1,6 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import AnimatedSection from "@/components/AnimatedSection";
 import GlowCard from "@/components/GlowCard";
 
@@ -48,11 +49,23 @@ function Hero() {
         className="relative z-10"
       >
         <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="text-6xl md:text-8xl mb-6"
+          animate={{
+            y: [0, -8, 0],
+            rotate: [-1, 1, -1],
+            scale: [1, 1.02, 1],
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="mb-6 relative"
         >
-          &#x1F480;
+          <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
+          <Image
+            src="/troll.png"
+            alt="ScrollToll Troll"
+            width={180}
+            height={180}
+            className="relative z-10 drop-shadow-[0_0_40px_rgba(57,255,20,0.5)] drop-shadow-[0_0_80px_rgba(57,255,20,0.2)]"
+            priority
+          />
         </motion.div>
 
         <h1 className="font-heading font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-4">
@@ -107,7 +120,7 @@ function Hero() {
 
 function Problem() {
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.span
           initial={{ opacity: 0, x: -20 }}
@@ -151,14 +164,14 @@ function Problem() {
 
 function Solution() {
   const steps = [
-    { num: "01", title: "SET YOUR LIMIT", desc: "Choose which apps to monitor and how long you're \"allowed\" to scroll.", icon: "&#x2699;&#xFE0F;" },
-    { num: "02", title: "SCROLL INTO THE VOID", desc: "Use your phone normally. We monitor in the background via Apple Screen Time.", icon: "&#x1F4F1;" },
-    { num: "03", title: "THE TOLL APPEARS", desc: "Exceed your limit? A full-screen shield drops: FEED THE VOID or walk away.", icon: "&#x1F6E1;&#xFE0F;" },
-    { num: "04", title: "YOUR GUILT DOES GOOD", desc: "One tap donates to charity. Your doom scrolling just fed a child.", icon: "&#x1F49A;" },
+    { num: "01", title: "SET YOUR LIMIT", desc: "Choose which apps to monitor and how long you're \"allowed\" to scroll.", icon: "⚙️" },
+    { num: "02", title: "SCROLL INTO THE VOID", desc: "Use your phone normally. We monitor in the background via Apple Screen Time.", icon: "📱" },
+    { num: "03", title: "THE TOLL APPEARS", desc: "Exceed your limit? A full-screen shield drops: FEED THE VOID or walk away.", icon: "🛡️" },
+    { num: "04", title: "YOUR GUILT DOES GOOD", desc: "One tap donates to charity. Your doom scrolling just fed a child.", icon: "💚" },
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12 relative">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12 relative">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-neon-green/3 to-transparent" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.span
@@ -183,9 +196,9 @@ function Solution() {
               transition={{ delay: i * 0.15, duration: 0.6 }}
               className="flex items-start gap-6 group"
             >
-              <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-dark-card border border-white/10 flex items-center justify-center text-2xl group-hover:border-neon-green/50 group-hover:shadow-[0_0_20px_rgba(57,255,20,0.2)] transition-all"
-                dangerouslySetInnerHTML={{ __html: step.icon }}
-              />
+              <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-dark-card border border-white/10 flex items-center justify-center text-2xl group-hover:border-neon-green/50 group-hover:shadow-[0_0_20px_rgba(57,255,20,0.2)] transition-all">
+                {step.icon}
+              </div>
               <div className="flex-1 pb-6 border-b border-white/5">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-neon-green font-mono text-sm font-bold">{step.num}</span>
@@ -209,7 +222,7 @@ function Voice() {
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.span
           initial={{ opacity: 0, x: -20 }}
@@ -230,7 +243,7 @@ function Voice() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.2, duration: 0.7 }}
               whileHover={{ scale: 1.03 }}
-              className={`bg-dark-card rounded-2xl p-8 border ${q.color} transition-all flex flex-col justify-between min-h-[250px]`}
+              className={`bg-[#141432] rounded-2xl p-8 border ${q.color} transition-all flex flex-col justify-between min-h-[250px]`}
             >
               <p className="text-neon-green font-mono text-base md:text-lg leading-relaxed whitespace-pre-line">{q.text}</p>
               <p className="text-white/30 text-sm mt-6">&mdash; {q.attribution}</p>
@@ -256,7 +269,7 @@ function Voice() {
 
 function Market() {
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12 relative">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-hot-pink/3 via-transparent to-electric-purple/3" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.span
@@ -316,14 +329,14 @@ function Market() {
 
 function Revenue() {
   const streams = [
-    { icon: "&#x1F4B0;", title: "PLATFORM FEE (7%)", desc: "On every donation processed. User pays $2, we keep $0.14, charity gets $1.86.", when: "DAY 1", color: "text-neon-green", glow: "rgba(57,255,20,0.15)" },
-    { icon: "&#x1F451;", title: "PREMIUM ($4.99/mo)", desc: "Multi-app monitoring, analytics dashboard, custom themes, leaderboards, tax receipts.", when: "MONTH 3", color: "text-hot-pink", glow: "rgba(255,46,151,0.15)" },
-    { icon: "&#x1F3E2;", title: "B2B WELLNESS", desc: "$5-10/employee/month. Corporate digital wellness with ESG reporting.", when: "MONTH 6", color: "text-electric-purple", glow: "rgba(191,0,255,0.15)" },
-    { icon: "&#x1F4E3;", title: "SPONSORED CAUSES", desc: "Nonprofits pay for featured placement in the donation shield. $500-5K/month.", when: "MONTH 6", color: "text-toxic-yellow", glow: "rgba(204,255,0,0.15)" },
+    { icon: "💰", title: "PLATFORM FEE (7%)", desc: "On every donation processed. User pays $2, we keep $0.14, charity gets $1.86.", when: "DAY 1", color: "text-neon-green", glow: "rgba(57,255,20,0.15)" },
+    { icon: "👑", title: "PREMIUM ($4.99/mo)", desc: "Multi-app monitoring, analytics dashboard, custom themes, leaderboards, tax receipts.", when: "MONTH 3", color: "text-hot-pink", glow: "rgba(255,46,151,0.15)" },
+    { icon: "🏢", title: "B2B WELLNESS", desc: "$5-10/employee/month. Corporate digital wellness with ESG reporting.", when: "MONTH 6", color: "text-electric-purple", glow: "rgba(191,0,255,0.15)" },
+    { icon: "📣", title: "SPONSORED CAUSES", desc: "Nonprofits pay for featured placement in the donation shield. $500-5K/month.", when: "MONTH 6", color: "text-toxic-yellow", glow: "rgba(204,255,0,0.15)" },
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.span initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-neon-green font-mono text-sm font-semibold tracking-widest uppercase mb-4 block">Revenue Model</motion.span>
         <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-16">Multiple Revenue Streams.<br /><span className="text-white/40">Not Just One Trick.</span></h2>
@@ -331,7 +344,7 @@ function Revenue() {
           {streams.map((s, i) => (
             <GlowCard key={i} delay={i * 0.12} glowColor={s.glow} className="flex flex-col justify-between">
               <div>
-                <div className="text-4xl mb-4" dangerouslySetInnerHTML={{ __html: s.icon }} />
+                <div className="text-4xl mb-4">{s.icon}</div>
                 <h3 className={`font-heading font-bold text-base tracking-wide mb-3 ${s.color}`}>{s.title}</h3>
                 <p className="text-white/50 text-sm leading-relaxed">{s.desc}</p>
               </div>
@@ -354,7 +367,7 @@ function Leaderboard() {
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12 relative">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12 relative">
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-neon-green/2 to-transparent" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.span initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-hot-pink font-mono text-sm font-semibold tracking-widest uppercase mb-4 block">The Leaderboard</motion.span>
@@ -362,11 +375,11 @@ function Leaderboard() {
         <p className="text-white/50 text-xl mb-16">Sharing is the growth engine.</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <GlowCard glowColor="rgba(57,255,20,0.1)" className="overflow-hidden">
-            <h3 className="text-neon-green font-heading font-bold text-lg tracking-wide mb-6">&#x1F3C6; HALL OF DOOM</h3>
+            <h3 className="text-neon-green font-heading font-bold text-lg tracking-wide mb-6">🏆 HALL OF DOOM</h3>
             <div className="space-y-1">
               {entries.map((e, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 + i * 0.1 }}
-                  className={`grid grid-cols-[2rem_1fr_4rem_4.5rem_auto] gap-2 items-center py-3 px-3 rounded-xl text-sm ${e.highlight ? "bg-neon-green/10 border border-neon-green/20" : "hover:bg-white/5"} transition-colors`}
+                  className={`grid grid-cols-[2rem_1fr_4rem_4.5rem_auto] gap-2 items-center py-3 px-3 rounded-xl text-sm ${e.highlight ? "bg-neon-green/15 border border-neon-green/20" : "hover:bg-white/5"} transition-colors`}
                 >
                   <span className="text-neon-green font-mono font-bold">{e.rank}</span>
                   <span className={`font-medium ${e.highlight ? "text-neon-green" : "text-white/80"}`}>{e.name}</span>
@@ -378,7 +391,7 @@ function Leaderboard() {
             </div>
           </GlowCard>
           <GlowCard glowColor="rgba(255,46,151,0.1)" delay={0.2}>
-            <h3 className="text-hot-pink font-heading font-bold text-lg tracking-wide mb-6">&#x1F4E2; BUILT TO SHARE</h3>
+            <h3 className="text-hot-pink font-heading font-bold text-lg tracking-wide mb-6">📢 BUILT TO SHARE</h3>
             <div className="space-y-6">
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="bg-dark-surface rounded-xl p-4 border border-neon-green/10">
                 <p className="text-neon-green font-mono text-sm leading-relaxed">&quot;Well done! You fed the troll AND a child by throwing your time into the void.&quot;</p>
@@ -412,11 +425,11 @@ function AlternativeTolls() {
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.span initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-electric-purple font-mono text-sm font-semibold tracking-widest uppercase mb-4 block">Beyond Donations</motion.span>
         <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">The Toll Can Be <span className="text-electric-purple text-glow-purple">Anything.</span></h2>
-        <p className="text-white/50 text-xl mb-16">Donations are just the start.</p>
+        <p className="text-white/50 text-xl mb-16">Donations Are Just the Start.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tolls.map((t, i) => (
             <GlowCard key={i} delay={i * 0.1} glowColor={i % 3 === 0 ? "rgba(57,255,20,0.1)" : i % 3 === 1 ? "rgba(255,46,151,0.1)" : "rgba(191,0,255,0.1)"}>
@@ -455,7 +468,7 @@ function TechTraction() {
   ];
 
   return (
-    <AnimatedSection className="py-24 md:py-32 px-6 md:px-12 relative">
+    <AnimatedSection className="py-16 md:py-24 px-6 md:px-12 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-surface/50 to-transparent" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.span initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-neon-green font-mono text-sm font-semibold tracking-widest uppercase mb-4 block">Built & Ready</motion.span>
@@ -496,7 +509,24 @@ function Close() {
       <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] rounded-full bg-hot-pink/5 blur-[100px]" />
       <div className="relative z-10 max-w-3xl mx-auto">
         <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-          <div className="text-6xl md:text-8xl mb-8">&#x1F480;</div>
+          <motion.div
+            animate={{
+              y: [0, -6, 0],
+              rotate: [-0.5, 0.5, -0.5],
+              scale: [1, 1.015, 1],
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative mx-auto w-fit mb-8"
+          >
+            <div className="absolute inset-0 rounded-full bg-neon-green/10 blur-2xl scale-110" />
+            <Image
+              src="/troll.png"
+              alt="ScrollToll Troll"
+              width={140}
+              height={140}
+              className="relative z-10 mx-auto drop-shadow-[0_0_40px_rgba(57,255,20,0.5)] drop-shadow-[0_0_80px_rgba(57,255,20,0.2)]"
+            />
+          </motion.div>
           <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             <span className="text-neon-green text-glow-green">THE VOID</span><br />
             <span className="text-hot-pink text-glow-pink">IS OPEN.</span>
@@ -506,12 +536,11 @@ function Close() {
           Your doom scrolling could feed a child, plant a tree, or provide clean water &mdash; every single day. All it costs is your guilt.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.5 }} className="space-y-4">
-          <div className="font-heading text-xl font-semibold text-white">Patrick Johnson</div>
-          <div className="text-white/40">Co-Founder &amp; CEO, ScrollToll</div>
-          <a href="mailto:pat@rockpaperreality.com" className="inline-block text-neon-green hover:underline">pat@rockpaperreality.com</a>
+          <div className="font-heading text-xl font-semibold text-white">Pat &amp; Jon, Founders</div>
+          <a href="mailto:hello@scrolltoll.com" className="inline-block text-neon-green hover:underline">Hello@scrolltoll.com</a>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.8 }} className="mt-16">
-          <a href="mailto:pat@rockpaperreality.com?subject=Let's%20Feed%20the%20Void" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-neon-green text-black font-heading font-bold text-lg hover:shadow-[0_0_40px_rgba(57,255,20,0.5)] hover:scale-105 transition-all">
+          <a href="mailto:hello@scrolltoll.com?subject=Let's%20Feed%20the%20Void" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-neon-green text-black font-heading font-bold text-lg hover:shadow-[0_0_40px_rgba(57,255,20,0.5)] hover:scale-105 transition-all">
             FEED THE VOID &rarr;
           </a>
         </motion.div>

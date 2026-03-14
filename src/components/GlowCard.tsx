@@ -20,7 +20,7 @@ export default function GlowCard({ children, className = "", glowColor = "rgba(5
         scale: 1.02,
         boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}`,
       }}
-      className={`relative bg-dark-card border border-white/10 rounded-2xl p-6 md:p-8 transition-colors hover:border-white/20 ${className}`}
+      className={`relative bg-[#141432] border border-white/15 shadow-[0_0_15px_rgba(57,255,20,0.05)] rounded-2xl p-6 md:p-8 transition-colors hover:border-white/20 ${className}`}
     >
       {children}
     </motion.div>
