@@ -800,8 +800,8 @@ function Close() {
           className="space-y-4"
         >
           <div className="font-heading text-xl font-semibold text-white">Pat &amp; Jon, Founders</div>
-          <a href="mailto:hello@scrolltoll.com" className="inline-block text-neon-green hover:underline">
-            Hello@scrolltoll.com
+          <a href="mailto:hello@scrolltoll.me" className="inline-block text-neon-green hover:underline">
+            hello@scrolltoll.me
           </a>
         </motion.div>
         <motion.div
@@ -812,7 +812,7 @@ function Close() {
           className="mt-16"
         >
           <a
-            href="mailto:hello@scrolltoll.com?subject=Let's%20Feed%20the%20Void"
+            href="mailto:hello@scrolltoll.me?subject=Let's%20Feed%20the%20Void"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-neon-green text-black font-heading font-bold text-lg hover:shadow-[0_0_40px_rgba(57,255,20,0.5)] hover:scale-105 transition-all"
           >
             FEED THE VOID &rarr;

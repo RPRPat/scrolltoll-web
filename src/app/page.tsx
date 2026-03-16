@@ -6,6 +6,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import GlowCard from "@/components/GlowCard";
 
+const faqItems = [
+  {
+    q: "Where does my money actually go?",
+    a: "90% goes directly to the charity you choose. 7% keeps ScrollToll free — servers and people cost money, and this is how we keep the app free for everyone without selling your data or showing you ads. 3% goes to Every.org, the nonprofit platform that handles transactions, compliance, and makes your donation tax-deductible.",
+  },
+  {
+    q: "Is the app really free?",
+    a: "Yes. ScrollToll is 100% free to download and use. You set your own limits, pick your apps, and see when you go over. Donating when the troll appears is encouraged — that's the whole point — but it's never required. You can always close the app and walk away. The troll will just judge you silently.",
+  },
+  {
+    q: "Is my donation tax-deductible?",
+    a: "Yes, for US taxpayers. Every toll is a charitable donation to a verified 501(c)(3) nonprofit. Thanks to the One Big Beautiful Bill Act (2026), even people who take the standard deduction can now deduct up to $1,000 in charitable gifts — meaning ~90% of taxpayers benefit. Every.org issues your tax receipt automatically via email.",
+  },
+  {
+    q: "How does the screen time monitoring work?",
+    a: "ScrollToll uses Apple's built-in Screen Time APIs (FamilyControls and DeviceActivity). Your usage data stays on your device — we never see which apps you use or how long you use them. All we know is when you've exceeded the limit you set.",
+  },
+  {
+    q: "Can I change my toll amount or charity?",
+    a: "Anytime. Open Settings in the app to change your toll amount ($1, $2, $5, or $10 per trigger), swap your charity, adjust your time limit, or change which apps are monitored. No commitments, no subscriptions.",
+  },
+  {
+    q: "What if I don't want to pay when the troll appears?",
+    a: "Tap “Close Instagram” (or whatever app triggered it) and walk away. No charge. The troll doesn't block your phone or hold anything hostage. But next time you go over your limit, it'll be back. And hungrier.",
+  },
+  {
+    q: "Is my payment information secure?",
+    a: "Payments are handled entirely by Stripe, one of the world's most trusted payment processors. Your card details never touch ScrollToll's servers. Everything is encrypted with 256-bit SSL.",
+  },
+];
+
 /* ─────────────────────── NAV ─────────────────────── */
 
 function Nav() {
@@ -92,6 +123,9 @@ function Hero() {
             autoPlay
             muted
             playsInline
+            loop
+            preload="metadata"
+            aria-label="Animated troll character"
             className="mx-auto h-[220px] w-[155px] object-contain md:h-[260px] md:w-[175px]"
             style={{
               maskImage:
@@ -99,9 +133,10 @@ function Hero() {
               WebkitMaskImage:
                 "radial-gradient(ellipse 85% 85% at center, black 60%, transparent 100%)",
             }}
-            src="/troll2.mp4"
-            poster="/troll.png"
-          />
+            poster="/troll-poster.jpg"
+          >
+            <source src="/troll2.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <h1 className="font-heading text-5xl font-bold tracking-tight sm:text-6xl md:text-[4.5rem]">
@@ -128,13 +163,13 @@ function Hero() {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green">&#10003;</span> 100% tax-deductible (US)
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 100% tax-deductible (US)
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green">&#10003;</span> 90%+ goes to charity
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 90%+ goes to charity
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green">&#10003;</span> Free to use, always
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> Free to use, always
           </span>
         </div>
       </motion.div>
@@ -304,13 +339,13 @@ function WhereMoneyGoes() {
           </div>
           <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <span>🟩</span> 90% to your chosen charity
+              <span role="img" aria-label="green square">🟩</span> 90% to your chosen charity
             </span>
             <span className="flex items-center gap-1.5">
-              <span>🟪</span> 7% keeps ScrollToll free for everyone
+              <span role="img" aria-label="purple square">🟪</span> 7% keeps ScrollToll free for everyone
             </span>
             <span className="flex items-center gap-1.5">
-              <span>🟣</span> 3% to Every.org (compliance + tax receipts)
+              <span role="img" aria-label="violet circle">🟣</span> 3% to Every.org (compliance + tax receipts)
             </span>
           </div>
         </motion.div>
@@ -318,7 +353,9 @@ function WhereMoneyGoes() {
         {/* Charity partners + trust signals */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(57,255,20,0.1)">
-            <div className="mb-4 text-3xl">&#127968;</div>
+            <div className="mb-4 text-3xl">
+              <span role="img" aria-label="house">🏠</span>
+            </div>
             <h3 className="font-heading text-lg font-bold text-white">Real Charities</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
               You choose from thousands of verified 501(c)(3) nonprofits. Feeding America, Doctors Without Borders, No Kid Hungry, St. Jude — or search for a cause you care about.
@@ -326,7 +363,9 @@ function WhereMoneyGoes() {
           </GlowCard>
 
           <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(255,46,151,0.1)" delay={0.1}>
-            <div className="mb-4 text-3xl">&#128274;</div>
+            <div className="mb-4 text-3xl">
+              <span role="img" aria-label="lock">🔒</span>
+            </div>
             <h3 className="font-heading text-lg font-bold text-white">Powered by Every.org</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
               Donations are processed through Every.org, a trusted 501(c)(3) nonprofit platform. They handle disbursement, regulatory compliance, and issue your tax receipts directly. The 3% platform fee covers all of this.
@@ -334,7 +373,9 @@ function WhereMoneyGoes() {
           </GlowCard>
 
           <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(191,0,255,0.1)" delay={0.2}>
-            <div className="mb-4 text-3xl">&#127974;</div>
+            <div className="mb-4 text-3xl">
+              <span role="img" aria-label="bank">🏦</span>
+            </div>
             <h3 className="font-heading text-lg font-bold text-white">Tax-Deductible (US)</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
               Every toll is a tax-deductible charitable donation. Thanks to the One Big Beautiful Bill Act, even non-itemizers can now deduct up to $1,000. Every.org sends your receipt automatically.
@@ -409,6 +450,7 @@ function TaxSavingsCalculator() {
           </label>
           <input
             type="range"
+            aria-label="Number of triggers per week"
             min={1}
             max={7}
             step={1}
@@ -702,39 +744,25 @@ function ImpactSection() {
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqs = [
-    {
-      q: "Where does my money actually go?",
-      a: "90% goes directly to the charity you choose. 7% keeps ScrollToll free \u2014 servers and people cost money, and this is how we keep the app free for everyone without selling your data or showing you ads. 3% goes to Every.org, the nonprofit platform that handles transactions, compliance, and makes your donation tax-deductible.",
-    },
-    {
-      q: "Is the app really free?",
-      a: "Yes. ScrollToll is 100% free to download and use. You set your own limits, pick your apps, and see when you go over. Donating when the troll appears is encouraged \u2014 that\u2019s the whole point \u2014 but it\u2019s never required. You can always close the app and walk away. The troll will just judge you silently.",
-    },
-    {
-      q: "Is my donation tax-deductible?",
-      a: "Yes, for US taxpayers. Every toll is a charitable donation to a verified 501(c)(3) nonprofit. Thanks to the One Big Beautiful Bill Act (2026), even people who take the standard deduction can now deduct up to $1,000 in charitable gifts \u2014 meaning ~90% of taxpayers benefit. Every.org issues your tax receipt automatically via email.",
-    },
-    {
-      q: "How does the screen time monitoring work?",
-      a: "ScrollToll uses Apple\u2019s built-in Screen Time APIs (FamilyControls and DeviceActivity). Your usage data stays on your device \u2014 we never see which apps you use or how long you use them. All we know is when you\u2019ve exceeded the limit you set.",
-    },
-    {
-      q: "Can I change my toll amount or charity?",
-      a: "Anytime. Open Settings in the app to change your toll amount ($1, $2, $5, or $10 per trigger), swap your charity, adjust your time limit, or change which apps are monitored. No commitments, no subscriptions.",
-    },
-    {
-      q: "What if I don\u2019t want to pay when the troll appears?",
-      a: "Tap \u201CClose Instagram\u201D (or whatever app triggered it) and walk away. No charge. The troll doesn\u2019t block your phone or hold anything hostage. But next time you go over your limit, it\u2019ll be back. And hungrier.",
-    },
-    {
-      q: "Is my payment information secure?",
-      a: "Payments are handled entirely by Stripe, one of the world\u2019s most trusted payment processors. Your card details never touch ScrollToll\u2019s servers. Everything is encrypted with 256-bit SSL.",
-    },
-  ];
-
   return (
     <section id="faq" className="px-6 py-20 md:px-10 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.a,
+              },
+            })),
+          }),
+        }}
+      />
       <div className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -752,7 +780,7 @@ function FAQ() {
         </motion.div>
 
         <div className="space-y-3">
-          {faqs.map((faq, i) => (
+          {faqItems.map((faq, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -762,6 +790,8 @@ function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                aria-expanded={openIndex === i}
+                aria-controls={`faq-answer-${i}`}
                 className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-[#141432] px-6 py-5 text-left transition-all hover:border-neon-green/30"
               >
                 <span className="pr-4 font-heading text-base font-semibold text-white sm:text-lg">
@@ -778,6 +808,7 @@ function FAQ() {
               <AnimatePresence>
                 {openIndex === i && (
                   <motion.div
+                    id={`faq-answer-${i}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -945,19 +976,19 @@ function Footer() {
             For Investors
           </Link>
           <span className="text-gray-700">|</span>
-          <a
-            href="mailto:hello@scrolltoll.me?subject=Privacy%20Policy"
+          <Link
+            href="/privacy"
             className="text-xs text-gray-600 transition-colors hover:text-gray-400"
           >
             Privacy Policy
-          </a>
+          </Link>
           <span className="text-gray-700">|</span>
-          <a
-            href="mailto:hello@scrolltoll.me?subject=Terms"
+          <Link
+            href="/terms"
             className="text-xs text-gray-600 transition-colors hover:text-gray-400"
           >
             Terms
-          </a>
+          </Link>
         </div>
         <p className="mt-6 text-xs uppercase tracking-[0.25em] text-gray-500">
           &copy; 2026 ScrollToll. All rights reserved.
