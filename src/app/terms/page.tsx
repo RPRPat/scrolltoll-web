@@ -138,15 +138,36 @@ export default function TermsPage() {
                 Stripe. By adding a payment method, you agree to Stripe&apos;s terms of service.
               </p>
               <p className="mt-4">
-                <strong className="text-white">Fees:</strong> ScrollToll retains approximately 7%
-                of each donation as a platform fee to sustain operations. Approximately 90% goes to
-                your selected charity, and approximately 3% covers payment processing. The exact
-                split is displayed transparently in the app.
+                <strong className="text-white">Platform fee:</strong> ScrollToll charges a
+                platform fee of 7% on each toll. This fee is retained by ScrollToll to cover
+                operations and development. Only the remaining 93% constitutes the charitable
+                contribution processed through Our Change Foundation. Only the charitable
+                contribution portion is tax-deductible.
               </p>
               <p className="mt-4">
                 <strong className="text-white">Disbursement:</strong> Charitable donations are
-                disbursed through our nonprofit giving partner to 501(c)(3) organizations. Tax
-                receipts are provided by the giving partner, not by ScrollToll.
+                processed through Our Change Foundation, not by ScrollToll directly. Tax receipts
+                are provided by Our Change Foundation, not by ScrollToll.
+              </p>
+              <p className="mt-4">
+                All donations are to Our Change Foundation (EIN: 86-3353394), a nonprofit Section
+                501(c)(3) organization that makes grants to the nonprofits suggested by you here.
+                Our Change Foundation (OCF) will not charge platform fees against the donations and
+                will send the funds to the nonprofit suggested by you here unless (1) the suggested
+                charity&apos;s public charity status with the Internal Revenue Service as an
+                organization described in Section 501(c)(3) of the Internal Revenue Code has
+                changed or has been revoked; or (2) the suggested Charity refuses to use the funds
+                for those purposes described in Section 501(c)(3) of the Internal Revenue Code; or
+                (3) Charity&apos;s registration to solicit charitable contributions with the
+                California Attorney General&apos;s Office Registry of Charitable Trusts is not in
+                good standing, which means that the registration is delinquent or suspended or
+                revoked, or the charity is not otherwise prohibited from soliciting or operating in
+                the state by the Attorney General. If OCF is unable to grant a donation to your
+                suggested nonprofit, then OCF will choose a nonprofit that has a similar mission to
+                your suggested charity and provide the donation to that charity. OCF will send the
+                funds to the suggested nonprofit within 365 days of receiving the contribution. The
+                maximum length of time it takes OCF to send the donation or a grant of the
+                recommended donation to a recipient charity is 365 days.
               </p>
               <p className="mt-4">
                 <strong className="text-white">Refunds:</strong> Because donations are made to
@@ -160,9 +181,10 @@ export default function TermsPage() {
               </p>
               <p className="mt-4">
                 <strong className="text-white">Tax deductibility:</strong> Donations made through
-                ScrollToll may be tax-deductible to the extent permitted by law. ScrollToll does
-                not provide tax advice. Consult a tax professional for guidance on your specific
-                situation.
+                ScrollToll may be tax-deductible to the extent permitted by law, but only the 93%
+                charitable contribution portion processed through Our Change Foundation is eligible
+                for a tax receipt. ScrollToll does not provide tax advice. Consult a tax
+                professional for guidance on your specific situation.
               </p>
             </section>
 

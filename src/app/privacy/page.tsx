@@ -119,6 +119,13 @@ export default function PrivacyPage() {
                 only the last four digits and card brand for display purposes in the app. All
                 payment processing is handled by Stripe in compliance with PCI DSS standards.
               </p>
+              <p className="mt-4">
+                Payment information is collected on our secure hosted payment page powered by
+                Stripe. ScrollToll does not store, process, or have access to your full card
+                number. Payment data is handled entirely by Stripe in compliance with PCI DSS
+                standards. We store only a reference to your payment method (last four digits and
+                card brand) for display purposes.
+              </p>
               <h3 className="mt-6 font-heading text-xl font-semibold text-white">Donation Records</h3>
               <p className="mt-2">
                 We record the date, amount, and recipient charity of each donation you make. This
@@ -148,12 +155,10 @@ export default function PrivacyPage() {
                 </a>.
               </p>
               <p className="mt-4">
-                <strong className="text-white">Every.org (or equivalent nonprofit giving platform):</strong>{" "}
-                Charitable donation disbursement. They receive the donation amount, charity
-                selection, and your email (for tax receipts). See{" "}
-                <a href="https://www.every.org/privacy" className="text-neon-green hover:text-white">
-                  every.org/privacy
-                </a>.
+                <strong className="text-white">Our Change Foundation:</strong> Charitable donation
+                disbursement and tax receipts. They receive the donation amount, charity
+                selection, and your email so they can process the charitable contribution and issue
+                receipts for the charitable portion of each charge.
               </p>
               <p className="mt-4">
                 <strong className="text-white">Firebase (Google):</strong> Authentication and

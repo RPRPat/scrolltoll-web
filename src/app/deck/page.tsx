@@ -666,7 +666,7 @@ function TechTraction() {
     "SwiftUI + MVVM architecture (iOS 16+)",
     "Apple Screen Time API (FamilyControls)",
     "Stripe Connect (payment processing)",
-    "Every.org / Change API (charity disbursement)",
+    "Our Change Foundation (charity disbursement)",
     "Firebase Auth + Firestore + Cloud Functions",
     "OS-level shield (appears over any app)",
     "App Group shared data across extensions",

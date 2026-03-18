@@ -9,7 +9,7 @@ import GlowCard from "@/components/GlowCard";
 const faqItems = [
   {
     q: "Where does my money actually go?",
-    a: "90% goes directly to the charity you choose. 7% keeps ScrollToll free — servers and people cost money, and this is how we keep the app free for everyone without selling your data or showing you ads. 3% goes to Every.org, the nonprofit platform that handles transactions, compliance, and makes your donation tax-deductible.",
+    a: "7% of each toll is retained by ScrollToll as a platform fee to keep the app running and free to use. The remaining 93% is processed as a charitable donation through Our Change Foundation (EIN: 86-3353394) and granted to the nonprofit you chose. Only the charitable portion is tax-deductible.",
   },
   {
     q: "Is the app really free?",
@@ -17,7 +17,7 @@ const faqItems = [
   },
   {
     q: "Is my donation tax-deductible?",
-    a: "Yes, for US taxpayers. Every toll is a charitable donation to a verified 501(c)(3) nonprofit. Thanks to the One Big Beautiful Bill Act (2026), even people who take the standard deduction can now deduct up to $1,000 in charitable gifts — meaning ~90% of taxpayers benefit. Every.org issues your tax receipt automatically via email.",
+    a: "Yes, for US taxpayers, but only the 93% charitable portion of each toll is tax-deductible to the extent allowed by law. Our Change Foundation issues the tax receipt automatically via email after your Scroll Jar charge is processed.",
   },
   {
     q: "How does the screen time monitoring work?",
@@ -163,10 +163,10 @@ function Hero() {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 100% tax-deductible (US)
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 93% charitable portion may be tax-deductible (US)
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 90%+ goes to charity
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 93% goes to charity
           </span>
           <span className="flex items-center gap-1.5">
             <span className="text-neon-green" aria-hidden="true">&#10003;</span> Free to use, always
@@ -292,7 +292,8 @@ function WhereMoneyGoes() {
             Where Your Money Goes.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            Every toll is a real donation to a verified nonprofit. Here's exactly how it breaks down.
+            93% of every toll is processed as a charitable donation through Our Change Foundation.
+            Here&apos;s exactly how it breaks down.
           </p>
         </motion.div>
 
@@ -311,12 +312,12 @@ function WhereMoneyGoes() {
           <div className="flex h-12 overflow-hidden rounded-xl">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "90%" }}
+              whileInView={{ width: "93%" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
               className="flex items-center justify-center bg-neon-green"
             >
-              <span className="text-sm font-bold text-black">90% to Charity — $1.80</span>
+              <span className="text-sm font-bold text-black">93% to Charity — $1.86</span>
             </motion.div>
             <motion.div
               initial={{ width: 0 }}
@@ -327,25 +328,13 @@ function WhereMoneyGoes() {
             >
               <span className="hidden text-[10px] font-bold text-white sm:inline">7%</span>
             </motion.div>
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: "3%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 1.1, ease: "easeOut" }}
-              className="flex items-center justify-center bg-electric-purple"
-            >
-              <span className="hidden text-[10px] font-bold text-white sm:inline">3%</span>
-            </motion.div>
           </div>
           <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <span role="img" aria-label="green square">🟩</span> 90% to your chosen charity
+              <span role="img" aria-label="green square">🟩</span> 93% to your chosen charity through Our Change Foundation
             </span>
             <span className="flex items-center gap-1.5">
               <span role="img" aria-label="purple square">🟪</span> 7% keeps ScrollToll free for everyone
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span role="img" aria-label="violet circle">🟣</span> 3% to Every.org (compliance + tax receipts)
             </span>
           </div>
         </motion.div>
@@ -366,9 +355,11 @@ function WhereMoneyGoes() {
             <div className="mb-4 text-3xl">
               <span role="img" aria-label="lock">🔒</span>
             </div>
-            <h3 className="font-heading text-lg font-bold text-white">Powered by Every.org</h3>
+            <h3 className="font-heading text-lg font-bold text-white">Powered by Our Change Foundation</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
-              Donations are processed through Every.org, a trusted 501(c)(3) nonprofit platform. They handle disbursement, regulatory compliance, and issue your tax receipts directly. The 3% platform fee covers all of this.
+              The charitable portion of each toll is processed through Our Change Foundation
+              (EIN: 86-3353394), a 501(c)(3) partner that handles charitable disbursement and tax
+              receipts for the donation portion of each charge.
             </p>
           </GlowCard>
 
@@ -378,7 +369,9 @@ function WhereMoneyGoes() {
             </div>
             <h3 className="font-heading text-lg font-bold text-white">Tax-Deductible (US)</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
-              Every toll is a tax-deductible charitable donation. Thanks to the One Big Beautiful Bill Act, even non-itemizers can now deduct up to $1,000. Every.org sends your receipt automatically.
+              The 93% charitable portion of each toll may be tax-deductible to the extent allowed
+              by law. Our Change Foundation sends your receipt automatically after your Scroll Jar
+              charge is processed.
             </p>
           </GlowCard>
         </div>
@@ -393,7 +386,8 @@ function TaxSavingsCalculator() {
   const [tollAmount, setTollAmount] = useState(2);
   const [triggersPerWeek, setTriggersPerWeek] = useState(3);
 
-  const annualDonation = tollAmount * triggersPerWeek * 52;
+  const annualTollTotal = tollAmount * triggersPerWeek * 52;
+  const annualDonation = Math.round(annualTollTotal * 0.93);
   const taxSavings = Math.round(annualDonation * 0.22);
   const mealsProvided = Math.round(annualDonation * 10);
 
@@ -473,7 +467,7 @@ function TaxSavingsCalculator() {
             <p className="text-3xl font-black text-white md:text-4xl">
               ${annualDonation.toLocaleString()}
             </p>
-            <p className="mt-1 text-sm text-gray-400">donated per year</p>
+            <p className="mt-1 text-sm text-gray-400">to charity per year</p>
           </div>
           <div className="rounded-xl border border-white/10 bg-[#141432] p-5 text-center">
             <p className="text-3xl font-black text-neon-green md:text-4xl">
@@ -489,15 +483,16 @@ function TaxSavingsCalculator() {
           </div>
           <div className="rounded-xl border border-hot-pink/20 bg-[#1a0d14] p-5 text-center">
             <p className="text-3xl font-black text-hot-pink md:text-4xl">
-              ${Math.round(annualDonation - taxSavings)}
+              ${Math.round(annualTollTotal - taxSavings)}
             </p>
             <p className="mt-1 text-sm text-gray-400">actual cost after deduction</p>
           </div>
         </div>
 
         <p className="mb-6 text-center text-sm text-gray-500">
-          *Based on Feeding America's estimate of ~10 meals per $1. Tax savings estimated at 22% marginal rate.
-          Receipts issued by Every.org. This is not tax advice.
+          *Based on Feeding America&apos;s estimate of ~10 meals per $1. Tax savings estimated at
+          a 22% marginal rate on the 93% charitable portion. Receipts issued by Our Change
+          Foundation. This is not tax advice.
         </p>
 
         <div className="text-center">
@@ -687,7 +682,9 @@ function ImpactSection() {
             Your Worst Habit. Their Best Day.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            Every toll you pay goes to a real, verified nonprofit. You pick which one. Here are some of the charities ScrollToll users can support.
+            93% of each toll is processed as a charitable donation through Our Change Foundation to
+            a real, verified nonprofit you choose. Here are some of the charities ScrollToll users
+            can support.
           </p>
         </motion.div>
 
