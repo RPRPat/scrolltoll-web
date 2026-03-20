@@ -22,6 +22,7 @@ type SetupSuccessClientProps = {
 export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClientProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("Saving your payment method...");
+  const [showFallbackLink, setShowFallbackLink] = useState(false);
 
   const returnLabel = useMemo(() => {
     if (status === "success") {
@@ -37,6 +38,7 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
 
   useEffect(() => {
     let redirectTimer: ReturnType<typeof setTimeout> | null = null;
+    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
     async function finalizeSetup() {
       if (!sessionId || !uid) {
@@ -65,12 +67,17 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
         setStatus("success");
         setMessage("Payment method saved. Returning you to ScrollToll...");
 
+        fallbackTimer = setTimeout(() => {
+          setShowFallbackLink(true);
+        }, 2000);
+
         redirectTimer = setTimeout(() => {
-          window.location.assign(APP_REDIRECT_URL);
+          window.location.href = APP_REDIRECT_URL;
         }, 2000);
       } catch (error) {
         setStatus("error");
         setMessage(error instanceof Error ? error.message : "Unable to finalize setup");
+        setShowFallbackLink(true);
       }
     }
 
@@ -79,6 +86,9 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
     return () => {
       if (redirectTimer) {
         clearTimeout(redirectTimer);
+      }
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
       }
     };
   }, [sessionId, uid]);
@@ -95,11 +105,29 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
 
         <button
           type="button"
-          onClick={() => window.location.assign(APP_REDIRECT_URL)}
+          onClick={() => {
+            window.location.href = APP_REDIRECT_URL;
+          }}
           className="mt-8 inline-flex items-center justify-center rounded-full border border-neon-green/30 px-6 py-3 text-sm font-bold text-neon-green transition-all hover:border-neon-green/60 hover:bg-neon-green/10"
         >
           {returnLabel}
         </button>
+
+        {showFallbackLink ? (
+          <div className="mt-5 text-sm text-gray-400">
+            <p>If ScrollToll does not reopen automatically, use this link:</p>
+            <a
+              href={APP_REDIRECT_URL}
+              onClick={(event) => {
+                event.preventDefault();
+                window.location.href = APP_REDIRECT_URL;
+              }}
+              className="mt-2 inline-flex text-neon-green underline underline-offset-4"
+            >
+              Open ScrollToll
+            </a>
+          </div>
+        ) : null}
 
         {status === "error" ? (
           <p className="mt-5 text-sm text-gray-500">

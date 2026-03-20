@@ -185,7 +185,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
       <div className="mx-auto flex max-w-5xl items-center justify-between pb-8">
         <BrandMark />
         <a
-          href="scrolltoll://payment-complete"
+          href="scrolltoll://payment-complete?source=portal"
           className="text-sm text-white/50 transition-colors hover:text-white"
         >
           Return to App
