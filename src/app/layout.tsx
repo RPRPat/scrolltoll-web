@@ -52,6 +52,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://scrolltoll.me"),
   title: "ScrollToll — Your Doom Scrolling Feeds the World",
   description:
     "The app that turns your worst screen time habit into charitable donations. Set a limit, blow past it, pay the toll, change a life.",
