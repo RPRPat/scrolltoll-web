@@ -412,7 +412,7 @@ function Revenue() {
     {
       icon: "👑",
       title: "PREMIUM ($4.99/mo)",
-      desc: "Multi-app monitoring, analytics dashboard, custom themes, leaderboards, tax receipts.",
+      desc: "Multi-app monitoring, advanced analytics, custom themes, enhanced leaderboard features, tax receipts.",
       when: "MONTH 3",
       color: "text-hot-pink",
       glow: "rgba(255,46,151,0.15)",
@@ -478,12 +478,22 @@ function Revenue() {
 }
 
 function Leaderboard() {
+  const podium = [
+    { rank: 2, name: "DarkScroller", donated: "$76", title: "CHAOS AGENT", ringColor: "border-gray-400", height: "h-20" },
+    { rank: 1, name: "SarahDoom", donated: "$94", title: "VOID CHAMPION", ringColor: "border-toxic-yellow", height: "h-28" },
+    { rank: 3, name: "TikTokTyrant", donated: "$62", title: "DOOM DEALER", ringColor: "border-orange-600", height: "h-16" },
+  ];
+
   const entries = [
-    { rank: 1, name: "SarahDoom", hours: "47h", donated: "$94", title: "VOID CHAMPION", highlight: false },
-    { rank: 2, name: "DarkScroller", hours: "38h", donated: "$76", title: "CHAOS AGENT", highlight: false },
-    { rank: 3, name: "TikTokTyrant", hours: "31h", donated: "$62", title: "DOOM DEALER", highlight: false },
-    { rank: 4, name: "ReelAddict", hours: "24h", donated: "$48", title: "VOID FEEDER", highlight: false },
-    { rank: 5, name: "You", hours: "12h", donated: "$24", title: "SCROLL NOVICE", highlight: true },
+    { rank: 4, name: "ReelAddict", donated: "$48", title: "VOID FEEDER", highlight: false },
+    { rank: 5, name: "You", donated: "$24", title: "SCROLL NOVICE", highlight: true },
+  ];
+
+  const features = [
+    { title: "Podium Top 3", desc: "Visual podium with profile rings, rank badges, and crown for #1. The kind of thing people screenshot.", color: "text-neon-green" },
+    { title: "Rank Titles", desc: "Every user earns a title: VOID CHAMPION, CHAOS AGENT, DOOM DEALER, SCROLL NOVICE. Titles change weekly.", color: "text-hot-pink" },
+    { title: "Share Cards", desc: "One-tap Instagram Stories card showing your rank, donation total, and top 5. Built to go viral.", color: "text-electric-purple" },
+    { title: "Friend Leaderboards", desc: "Private invite-code leaderboards. Challenge friends directly. Social pressure drives retention.", color: "text-toxic-yellow" },
   ];
 
   return (
@@ -496,17 +506,46 @@ function Leaderboard() {
           viewport={{ once: true }}
           className="text-hot-pink font-mono text-sm font-semibold tracking-widest uppercase mb-4 block"
         >
-          The Leaderboard
+          The Growth Engine
         </motion.span>
         <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
           Shame Is the Feature.
         </h2>
-        <p className="text-white/50 text-xl mb-16">Sharing is the growth engine.</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <p className="text-white/50 text-xl mb-16">The leaderboard is why people share. Sharing is how we grow.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* Podium mockup */}
           <GlowCard glowColor="rgba(57,255,20,0.1)" className="overflow-hidden">
-            <h3 className="text-neon-green font-heading font-bold text-lg tracking-wide mb-6">
+            <h3 className="text-neon-green font-heading font-bold text-lg tracking-wide mb-8">
               🏆 HALL OF DOOM
             </h3>
+
+            {/* Podium visual */}
+            <div className="flex items-end justify-center gap-3 mb-6">
+              {podium.map((p, i) => (
+                <motion.div
+                  key={p.rank}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+                  className="flex flex-col items-center"
+                >
+                  {p.rank === 1 && <span className="text-2xl mb-1">👑</span>}
+                  <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full ${p.ringColor} border-[3px] bg-white/10 flex items-center justify-center mb-2 relative`}>
+                    <span className="text-white/80 font-bold text-lg">{p.name.charAt(0)}</span>
+                    <span className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full ${p.rank === 1 ? "bg-toxic-yellow" : p.rank === 2 ? "bg-gray-400" : "bg-orange-600"} flex items-center justify-center text-[10px] font-black text-black`}>
+                      {p.rank}
+                    </span>
+                  </div>
+                  <span className="text-white/80 text-xs font-medium truncate max-w-[4.5rem]">{p.name}</span>
+                  <span className="text-neon-green font-mono text-xs font-bold">{p.donated}</span>
+                  <div className={`${p.height} w-16 md:w-20 mt-2 rounded-t-lg bg-neon-green/10 border border-neon-green/20`} />
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Remaining entries */}
             <div className="space-y-1">
               {entries.map((entry, i) => (
                 <motion.div
@@ -514,63 +553,74 @@ function Leaderboard() {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
-                  className={`grid grid-cols-[2rem_1fr_4rem_4.5rem_auto] gap-2 items-center py-3 px-3 rounded-xl text-sm ${
+                  transition={{ delay: 0.6 + i * 0.1 }}
+                  className={`flex items-center justify-between py-3 px-3 rounded-xl text-sm ${
                     entry.highlight
                       ? "bg-neon-green/15 border border-neon-green/20"
                       : "hover:bg-white/5"
                   } transition-colors`}
                 >
-                  <span className="text-neon-green font-mono font-bold">{entry.rank}</span>
-                  <span className={entry.highlight ? "font-medium text-neon-green" : "font-medium text-white/80"}>
-                    {entry.name}
-                  </span>
-                  <span className="text-hot-pink font-mono text-xs">{entry.hours}</span>
-                  <span className="text-neon-green font-mono text-xs">{entry.donated}</span>
-                  <span className="text-white/30 font-mono text-xs hidden sm:block">
-                    {entry.title}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-neon-green font-mono font-bold w-6">{entry.rank}</span>
+                    <span className={entry.highlight ? "font-medium text-neon-green" : "font-medium text-white/80"}>
+                      {entry.name}
+                    </span>
+                    <span className="text-white/20 font-mono text-[10px] px-1.5 py-0.5 rounded-full bg-white/5 hidden sm:inline">
+                      {entry.title}
+                    </span>
+                  </div>
+                  <span className="text-neon-green font-mono text-xs font-bold">{entry.donated}</span>
                 </motion.div>
               ))}
             </div>
           </GlowCard>
-          <GlowCard glowColor="rgba(255,46,151,0.1)" delay={0.2}>
-            <h3 className="text-hot-pink font-heading font-bold text-lg tracking-wide mb-6">
-              📢 BUILT TO SHARE
-            </h3>
-            <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="bg-dark-surface rounded-xl p-4 border border-neon-green/10"
+
+          {/* Features grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {features.map((f, i) => (
+              <GlowCard
+                key={i}
+                glowColor={
+                  i === 0 ? "rgba(57,255,20,0.1)" :
+                  i === 1 ? "rgba(255,46,151,0.1)" :
+                  i === 2 ? "rgba(191,0,255,0.1)" :
+                  "rgba(204,255,0,0.1)"
+                }
+                delay={0.1 + i * 0.1}
               >
-                <p className="text-neon-green font-mono text-sm leading-relaxed">
-                  &quot;Well done! You fed the troll AND a child by throwing your time into the
-                  void.&quot;
-                </p>
-              </motion.div>
-              {[
-                "Auto-generated doom scrolling report cards — shareable to Instagram Stories",
-                "Challenge friends: \"I bet I can scroll less than you this week\"",
-                "Monthly \"Doom Awards\" — Most Improved, Biggest Donor, Lost Cause",
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + i * 0.15 }}
-                  className="flex items-start gap-3"
-                >
-                  <span className="text-hot-pink mt-1">&#x25B8;</span>
-                  <p className="text-white/60 text-sm">{item}</p>
-                </motion.div>
-              ))}
-            </div>
-          </GlowCard>
+                <h4 className={`font-heading font-bold text-sm tracking-wide mb-2 ${f.color}`}>
+                  {f.title}
+                </h4>
+                <p className="text-white/50 text-sm leading-relaxed">{f.desc}</p>
+              </GlowCard>
+            ))}
+          </div>
         </div>
+
+        {/* Share mechanics callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="rounded-2xl border border-hot-pink/15 bg-[#1a0a14] p-8 text-center"
+        >
+          <h3 className="text-hot-pink font-heading font-bold text-lg mb-4">📢 BUILT-IN VIRAL LOOPS</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+            <div>
+              <p className="text-white/80 font-medium mb-1">Share Cards</p>
+              <p className="text-white/40">Auto-generated rank cards sized for Instagram Stories</p>
+            </div>
+            <div>
+              <p className="text-white/80 font-medium mb-1">Friend Challenges</p>
+              <p className="text-white/40">&quot;I bet I can scroll less than you this week&quot;</p>
+            </div>
+            <div>
+              <p className="text-white/80 font-medium mb-1">Doom Awards</p>
+              <p className="text-white/40">Monthly titles: Most Improved, Biggest Donor, Lost Cause</p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </AnimatedSection>
   );
@@ -664,22 +714,26 @@ function AlternativeTolls() {
 function TechTraction() {
   const stack = [
     "SwiftUI + MVVM architecture (iOS 16+)",
-    "Apple Screen Time API (FamilyControls)",
-    "Stripe Connect (payment processing)",
-    "Our Change Foundation (charity disbursement)",
-    "Firebase Auth + Firestore + Cloud Functions",
-    "OS-level shield (appears over any app)",
-    "App Group shared data across extensions",
+    "Apple Screen Time API (FamilyControls + DeviceActivity)",
+    "Stripe (SetupIntents, off-session PaymentIntents)",
+    "Our Change Foundation / Change API (charity disbursement)",
+    "Firebase Auth + Firestore + Cloud Functions (deployed)",
+    "OS-level shield (appears over any app, skip or pay)",
+    "Scroll Jar — tolls accumulate, donate when ready",
+    "Leaderboard with friend invites & social sharing",
   ];
   const status = [
     { item: "Core app built & running on device", state: "DONE", color: "text-neon-green" },
     { item: "Screen Time monitoring integrated", state: "DONE", color: "text-neon-green" },
     { item: "Stripe payment flow working", state: "DONE", color: "text-neon-green" },
     { item: "Doom metal UI/UX complete", state: "DONE", color: "text-neon-green" },
-    { item: "Charity API integrated", state: "DONE", color: "text-neon-green" },
-    { item: "Change.io partnership (in talks)", state: "IN PROGRESS", color: "text-toxic-yellow" },
-    { item: "Firebase backend deployment", state: "NEXT", color: "text-white/30" },
-    { item: "TestFlight beta launch", state: "Q2 2026", color: "text-white/30" },
+    { item: "Charity API integrated (Change / Our Change Foundation)", state: "DONE", color: "text-neon-green" },
+    { item: "Firebase backend deployed (Cloud Functions live)", state: "DONE", color: "text-neon-green" },
+    { item: "Leaderboard & friend invite system", state: "DONE", color: "text-neon-green" },
+    { item: "Scroll Jar accumulation & donation flow", state: "DONE", color: "text-neon-green" },
+    { item: "On-device QA testing (8 rounds completed)", state: "DONE", color: "text-neon-green" },
+    { item: "TestFlight beta", state: "DONE", color: "text-neon-green" },
+    { item: "App Store submission", state: "IN PROGRESS", color: "text-toxic-yellow" },
   ];
 
   return (

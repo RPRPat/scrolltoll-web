@@ -28,12 +28,20 @@ const faqItems = [
     a: "Anytime. Open Settings in the app to change your toll amount ($1, $2, $5, or $10 per trigger), swap your charity, adjust your time limit, or change which apps are monitored. No commitments, no subscriptions.",
   },
   {
-    q: "What if I don't want to pay when the troll appears?",
-    a: "Tap “Close Instagram” (or whatever app triggered it) and walk away. No charge. The troll doesn't block your phone or hold anything hostage. But next time you go over your limit, it'll be back. And hungrier.",
+    q: “What if I don't want to pay when the troll appears?”,
+    a: “Tap \”Skip This Time\” and keep scrolling. No charge. The troll doesn't block your phone or hold anything hostage. But next time you go over your limit, it'll be back. And hungrier.”,
   },
   {
-    q: "Is my payment information secure?",
-    a: "Payments are handled entirely by Stripe, one of the world's most trusted payment processors. Your card details never touch ScrollToll's servers. Everything is encrypted with 256-bit SSL.",
+    q: “What is the Scroll Jar?”,
+    a: “Tolls accumulate in your Scroll Jar instead of charging you immediately. When you're ready, tap \”Donate Now\” to send the full amount to your chosen charity. Think of it as a guilt piggy bank.”,
+  },
+  {
+    q: “How does the leaderboard work?”,
+    a: “Weekly leaderboards rank users by total donated, donation streak, screen time reduced, or most doom scrolling. You can also create private friend leaderboards with invite codes. Rankings reset each week so everyone starts fresh.”,
+  },
+  {
+    q: “Is my payment information secure?”,
+    a: “Payments are handled entirely by Stripe, one of the world's most trusted payment processors. Your card details never touch ScrollToll's servers. Everything is encrypted with 256-bit SSL.”,
   },
 ];
 
@@ -214,14 +222,14 @@ function HowItWorks() {
     },
     {
       num: "03",
-      title: "Pay the Toll",
-      desc: "One tap. $2 to a charity you chose. Your guilt becomes someone's groceries, medicine, or clean water.",
+      title: "Add to Your Jar",
+      desc: "Tolls accumulate in your Scroll Jar. When you\u2019re ready, donate it all to a charity you chose. Or skip \u2014 the troll will remember.",
       icon: "&#128154;",
     },
     {
       num: "04",
       title: "Keep Scrolling (or Don\u2019t)",
-      desc: "Shield clears. You\u2019re free. But next time you go over, the troll will be back. And hungrier.",
+      desc: "Shield clears. You\u2019re back. But the leaderboard is watching \u2014 and your friends just got notified.",
       icon: "&#9851;",
     },
   ];
@@ -543,22 +551,19 @@ function PhoneMockup() {
                   height={80}
                   className="mx-auto mb-4 drop-shadow-[0_0_20px_rgba(57,255,20,0.4)]"
                 />
-                <p className="mb-1 text-xl font-black text-white">THE TROLL DEMANDS</p>
-                <p className="mb-2 text-xl font-black text-white">PAYMENT</p>
+                <p className="mb-1 text-xl font-black text-white">THE TROLL CAUGHT YOU</p>
                 <p className="mb-2 text-sm text-gray-400">
-                  You've been on Instagram
-                  <br />
-                  for 32 minutes past your limit.
+                  Review your toll or skip this one.
                 </p>
                 <p className="mb-5 font-mono text-sm text-neon-green">
                   $2.00 &rarr; Feeding America
                 </p>
 
-                <button className="mb-3 w-full rounded-full bg-neon-green py-3 text-sm font-black text-black">
-                  PAY THE TOLL — $2.00
+                <button className="mb-2 w-full rounded-full bg-neon-green py-3 text-sm font-black text-black">
+                  ADD TO JAR — $2.00
                 </button>
-                <button className="w-full rounded-full border border-white/20 py-3 text-sm text-gray-400">
-                  CLOSE INSTAGRAM
+                <button className="mb-2 w-full rounded-full border border-white/20 py-2.5 text-sm text-gray-400">
+                  SKIP THIS TIME
                 </button>
               </div>
             </div>
@@ -566,10 +571,123 @@ function PhoneMockup() {
         </div>
 
         <p className="mx-auto mt-8 max-w-md text-sm text-gray-400">
-          A full-screen shield drops over the app. It shows exactly what you owe and where it goes.
-          One tap donates to charity. Or close the app. Your call.
+          A full-screen shield drops over the app. Add the toll to your Scroll Jar, or skip this one.
+          When you&apos;re ready, empty the jar and donate it all to your chosen charity.
         </p>
       </motion.div>
+    </section>
+  );
+}
+
+/* ─────────────────── LEADERBOARD ─────────────────── */
+
+function LeaderboardPreview() {
+  const podium = [
+    { rank: 2, name: "DarkScroller", donated: "$76", ringColor: "border-gray-400", barH: "h-16" },
+    { rank: 1, name: "SarahDoom", donated: "$94", ringColor: "border-[#CCFF00]", barH: "h-24" },
+    { rank: 3, name: "TikTokTyrant", donated: "$62", ringColor: "border-orange-600", barH: "h-12" },
+  ];
+
+  return (
+    <section className="px-6 py-20 md:px-10 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-12 max-w-2xl text-center"
+        >
+          <p className="font-mono text-sm font-semibold uppercase tracking-[0.35em] text-hot-pink">
+            The Leaderboard
+          </p>
+          <h2 className="mt-4 font-heading text-4xl font-bold text-white sm:text-5xl">
+            Compete. Share. Get Shamed.
+          </h2>
+          <p className="mt-4 text-base text-gray-400">
+            See who&apos;s donating the most, who can&apos;t stop scrolling, and where you rank.
+            Challenge friends. Share your rank card. Let the shame drive impact.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {/* Podium mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-white/10 bg-[#141432] p-8"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="font-heading text-lg font-bold text-neon-green">TOP TROLLS</h3>
+              <div className="flex gap-2">
+                <span className="rounded-full bg-neon-green/15 px-3 py-1 text-xs font-bold text-neon-green">Donated</span>
+                <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-gray-500">Streak</span>
+                <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-gray-500">Doom</span>
+              </div>
+            </div>
+
+            <div className="flex items-end justify-center gap-4 py-6">
+              {podium.map((p, i) => (
+                <motion.div
+                  key={p.rank}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + i * 0.15, duration: 0.5 }}
+                  className="flex flex-col items-center"
+                >
+                  {p.rank === 1 && <span className="mb-1 text-xl">👑</span>}
+                  <div className={`relative flex h-14 w-14 items-center justify-center rounded-full border-[3px] ${p.ringColor} bg-white/10`}>
+                    <span className="text-lg font-bold text-white/80">{p.name.charAt(0)}</span>
+                    <span className={`absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-black ${
+                      p.rank === 1 ? "bg-[#CCFF00]" : p.rank === 2 ? "bg-gray-400" : "bg-orange-600"
+                    }`}>
+                      {p.rank}
+                    </span>
+                  </div>
+                  <span className="mt-2 max-w-[5rem] truncate text-xs font-medium text-white/80">{p.name}</span>
+                  <span className="font-mono text-xs font-bold text-neon-green">{p.donated}</span>
+                  <div className={`${p.barH} mt-2 w-16 rounded-t-lg border border-neon-green/20 bg-neon-green/10`} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Feature highlights */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(57,255,20,0.1)">
+              <p className="mb-2 text-2xl">🏆</p>
+              <h4 className="font-heading text-base font-bold text-white">Weekly Rankings</h4>
+              <p className="mt-2 text-sm text-gray-400">
+                Compete on total donated, donation streaks, screen time reduced, or most doom scrolling.
+              </p>
+            </GlowCard>
+            <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(255,46,151,0.1)" delay={0.1}>
+              <p className="mb-2 text-2xl">👥</p>
+              <h4 className="font-heading text-base font-bold text-white">Friend Leaderboards</h4>
+              <p className="mt-2 text-sm text-gray-400">
+                Private invite-code leaderboards. Challenge friends directly and keep each other accountable.
+              </p>
+            </GlowCard>
+            <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(191,0,255,0.1)" delay={0.2}>
+              <p className="mb-2 text-2xl">📤</p>
+              <h4 className="font-heading text-base font-bold text-white">Share Your Rank</h4>
+              <p className="mt-2 text-sm text-gray-400">
+                One-tap share cards for Instagram Stories. Flex your generosity or shame your scroll time.
+              </p>
+            </GlowCard>
+            <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(204,255,0,0.1)" delay={0.3}>
+              <p className="mb-2 text-2xl">🧌</p>
+              <h4 className="font-heading text-base font-bold text-white">Rank Titles</h4>
+              <p className="mt-2 text-sm text-gray-400">
+                Earn titles like VOID CHAMPION, CHAOS AGENT, or SCROLL NOVICE based on your weekly ranking.
+              </p>
+            </GlowCard>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -1006,6 +1124,7 @@ export default function Home() {
       <WhereMoneyGoes />
       <TaxSavingsCalculator />
       <PhoneMockup />
+      <LeaderboardPreview />
       <ImpactSection />
       <TrollSpeaks />
       <FAQ />
