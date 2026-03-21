@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { FieldValue } from "firebase-admin/firestore";
 import type Stripe from "stripe";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing sessionId or uid" }, { status: 400 });
     }
 
-    const stripe = getStripe();
+    const stripe = await getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ["setup_intent", "setup_intent.payment_method"],
     });
@@ -68,9 +67,9 @@ export async function POST(request: Request) {
       stripeCardBrand: resolvedPaymentMethod.card?.brand ?? null,
       hasPaymentSetup: true,
       givingPaused: false,
-      paymentConsentAcceptedAt: FieldValue.serverTimestamp(),
+      paymentConsentAcceptedAt: new Date().toISOString(),
       paymentConsentStatus: "active",
-      updatedAt: FieldValue.serverTimestamp(),
+      updatedAt: new Date().toISOString(),
     };
 
     if (session.metadata?.charityName) {

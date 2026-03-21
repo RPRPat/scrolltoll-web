@@ -1,4 +1,3 @@
-import { FieldValue } from "firebase-admin/firestore";
 import { getAdminDb } from "@/lib/firebase-admin";
 import { getStripe } from "@/lib/stripe";
 
@@ -16,7 +15,8 @@ export type StoredPaymentProfile = {
 const USER_COLLECTION = "users";
 
 export async function getUserPaymentProfile(uid: string) {
-  const userRef = getAdminDb().collection(USER_COLLECTION).doc(uid);
+  const adminDb = await getAdminDb();
+  const userRef = adminDb.collection(USER_COLLECTION).doc(uid);
   const snapshot = await userRef.get();
   const data = snapshot.data() as StoredPaymentProfile | undefined;
 
@@ -33,7 +33,7 @@ export async function ensureStripeCustomerId(uid: string) {
     return data.stripeCustomerId;
   }
 
-  const stripe = getStripe();
+  const stripe = await getStripe();
   const customer = await stripe.customers.create({
     metadata: {
       firebaseUid: uid,
@@ -43,7 +43,7 @@ export async function ensureStripeCustomerId(uid: string) {
   await ref.set(
     {
       stripeCustomerId: customer.id,
-      updatedAt: FieldValue.serverTimestamp(),
+      updatedAt: new Date().toISOString(),
     },
     { merge: true },
   );

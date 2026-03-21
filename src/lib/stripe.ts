@@ -1,10 +1,10 @@
-import Stripe from "stripe";
+import type Stripe from "stripe";
 
-let stripeInstance: Stripe | null = null;
+let stripeClient: Stripe | null = null;
 
-export function getStripe() {
-  if (stripeInstance) {
-    return stripeInstance;
+export async function getStripe() {
+  if (stripeClient) {
+    return stripeClient;
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -13,6 +13,7 @@ export function getStripe() {
     throw new Error("Missing STRIPE_SECRET_KEY");
   }
 
-  stripeInstance = new Stripe(secretKey);
-  return stripeInstance;
+  const { default: StripeSdk } = await import("stripe");
+  stripeClient = new StripeSdk(secretKey);
+  return stripeClient;
 }

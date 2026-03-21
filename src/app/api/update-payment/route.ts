@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { FieldValue } from "firebase-admin/firestore";
 import { ensureStripeCustomerId, getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 
@@ -19,7 +18,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing uid" }, { status: 400 });
     }
 
-    const stripe = getStripe();
+    const stripe = await getStripe();
     const customerId = await ensureStripeCustomerId(uid);
     const baseUrl = getBaseUrl();
 
@@ -56,7 +55,7 @@ export async function PATCH(request: Request) {
       {
         givingPaused: body.paused,
         paymentConsentStatus: body.paused ? "paused" : "active",
-        updatedAt: FieldValue.serverTimestamp(),
+        updatedAt: new Date().toISOString(),
       },
       { merge: true },
     );

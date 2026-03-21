@@ -28,20 +28,20 @@ const faqItems = [
     a: "Anytime. Open Settings in the app to change your toll amount ($1, $2, $5, or $10 per trigger), swap your charity, adjust your time limit, or change which apps are monitored. No commitments, no subscriptions.",
   },
   {
-    q: “What if I don't want to pay when the troll appears?”,
-    a: “Tap \”Skip This Time\” and keep scrolling. No charge. The troll doesn't block your phone or hold anything hostage. But next time you go over your limit, it'll be back. And hungrier.”,
+    q: "What if I don't want to pay when the troll appears?",
+    a: "Tap \"Skip This Time\" and keep scrolling. No charge. The troll doesn't block your phone or hold anything hostage. But next time you go over your limit, it'll be back. And hungrier.",
   },
   {
-    q: “What is the Scroll Jar?”,
-    a: “Tolls accumulate in your Scroll Jar instead of charging you immediately. When you're ready, tap \”Donate Now\” to send the full amount to your chosen charity. Think of it as a guilt piggy bank.”,
+    q: "What is the Scroll Jar?",
+    a: "Tolls accumulate in your Scroll Jar instead of charging you immediately. When you're ready, tap \"Donate Now\" to send the full amount to your chosen charity. Think of it as a guilt piggy bank.",
   },
   {
-    q: “How does the leaderboard work?”,
-    a: “Weekly leaderboards rank users by total donated, donation streak, screen time reduced, or most doom scrolling. You can also create private friend leaderboards with invite codes. Rankings reset each week so everyone starts fresh.”,
+    q: "How does the leaderboard work?",
+    a: "Weekly leaderboards rank users by total donated, donation streak, screen time reduced, or most doom scrolling. You can also create private friend leaderboards with invite codes. Rankings reset each week so everyone starts fresh.",
   },
   {
-    q: “Is my payment information secure?”,
-    a: “Payments are handled entirely by Stripe, one of the world's most trusted payment processors. Your card details never touch ScrollToll's servers. Everything is encrypted with 256-bit SSL.”,
+    q: "Is my payment information secure?",
+    a: "Payments are handled entirely by Stripe, one of the world's most trusted payment processors. Your card details never touch ScrollToll's servers. Everything is encrypted with 256-bit SSL.",
   },
 ];
 

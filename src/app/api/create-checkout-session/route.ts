@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { FieldValue } from "firebase-admin/firestore";
 import { ensureStripeCustomerId, getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
     const amount = Number(body.amount);
     const normalizedAmount = Number.isFinite(amount) && amount > 0 ? amount : 2;
 
-    const stripe = getStripe();
+    const stripe = await getStripe();
     const customerId = await ensureStripeCustomerId(uid);
     const { ref } = await getUserPaymentProfile(uid);
 
@@ -36,7 +35,7 @@ export async function POST(request: Request) {
       {
         selectedCharityName: charity,
         tollAmount: normalizedAmount,
-        updatedAt: FieldValue.serverTimestamp(),
+        updatedAt: new Date().toISOString(),
       },
       { merge: true },
     );

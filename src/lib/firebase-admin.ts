@@ -1,11 +1,14 @@
-import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import type { App } from "firebase-admin/app";
+import type { Firestore } from "firebase-admin/firestore";
 
 type ServiceAccountPayload = {
   project_id: string;
   client_email: string;
   private_key: string;
 };
+
+let firebaseAdminApp: App | null = null;
+let firestoreDb: Firestore | null = null;
 
 function getServiceAccount() {
   const rawKey = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
@@ -23,16 +26,31 @@ function getServiceAccount() {
   };
 }
 
-function getAdminApp() {
-  if (getApps().length > 0) {
-    return getApps()[0];
+async function getFirebaseAdminApp() {
+  if (firebaseAdminApp) {
+    return firebaseAdminApp;
   }
 
-  return initializeApp({
+  const { cert, getApp, getApps, initializeApp } = await import("firebase-admin/app");
+
+  if (getApps().length > 0) {
+    firebaseAdminApp = getApp();
+    return firebaseAdminApp;
+  }
+
+  firebaseAdminApp = initializeApp({
     credential: cert(getServiceAccount()),
   });
+  return firebaseAdminApp;
 }
 
-export function getAdminDb() {
-  return getFirestore(getAdminApp());
+export async function getAdminDb() {
+  if (firestoreDb) {
+    return firestoreDb;
+  }
+
+  const adminApp = await getFirebaseAdminApp();
+  const { getFirestore } = await import("firebase-admin/firestore");
+  firestoreDb = getFirestore(adminApp);
+  return firestoreDb;
 }

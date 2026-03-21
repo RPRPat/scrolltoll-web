@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { FieldValue } from "firebase-admin/firestore";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 
@@ -15,7 +14,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing uid" }, { status: 400 });
     }
 
-    const stripe = getStripe();
+    const stripe = await getStripe();
     const { ref, data } = await getUserPaymentProfile(uid);
 
     if (data?.stripePaymentMethodId) {
@@ -24,13 +23,13 @@ export async function POST(request: Request) {
 
     await ref.set(
       {
-        stripePaymentMethodId: FieldValue.delete(),
-        stripeCardLast4: FieldValue.delete(),
-        stripeCardBrand: FieldValue.delete(),
+        stripePaymentMethodId: null,
+        stripeCardLast4: null,
+        stripeCardBrand: null,
         hasPaymentSetup: false,
         givingPaused: false,
         paymentConsentStatus: "cancelled",
-        updatedAt: FieldValue.serverTimestamp(),
+        updatedAt: new Date().toISOString(),
       },
       { merge: true },
     );
