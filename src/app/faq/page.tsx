@@ -9,12 +9,12 @@ const faqItems = [
   {
     question: "Where does my donation go?",
     answer:
-      "Your toll is split: 7% is a platform fee retained by ScrollToll, and 93% is a charitable donation processed through Our Change Foundation (EIN: 86-3353394) to your chosen nonprofit.",
+      "100% of your donation goes to your chosen charity through Our Change Foundation (EIN: 86-3353394). ScrollToll charges a 7% platform fee separately to keep the app free. Standard processing costs also apply. These fees are charged on top of your donation — they are never deducted from it.",
   },
   {
     question: "Are my donations tax-deductible?",
     answer:
-      "The charitable donation portion (93% of your toll) is tax-deductible to the extent allowed by law. Tax receipts are issued by Our Change Foundation.",
+      "Your full donation amount is tax-deductible to the extent allowed by law. The platform fee and processing costs are not tax-deductible.",
   },
   {
     question: "How long until my charity receives the funds?",

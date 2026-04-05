@@ -373,7 +373,7 @@ function Market() {
             <div className="space-y-4">
               {[
                 "Subscription + donation platform fee",
-                "7% on every donation (recurring revenue)",
+                "7% platform fee charged on top of each donation",
                 "B2B corporate wellness licensing",
                 "Sponsored charity placements",
                 "Social/viral sharing mechanics",
@@ -404,7 +404,7 @@ function Revenue() {
     {
       icon: "💰",
       title: "PLATFORM FEE (7%)",
-      desc: "On every donation processed. User pays $2, we keep $0.14, charity gets $1.86.",
+      desc: "100% of the $2 donation goes to charity. ScrollToll charges a separate $0.14 platform fee on top (plus processing costs).",
       when: "DAY 1",
       color: "text-neon-green",
       glow: "rgba(57,255,20,0.15)",
@@ -716,7 +716,7 @@ function TechTraction() {
     "SwiftUI + MVVM architecture (iOS 16+)",
     "Apple Screen Time API (FamilyControls + DeviceActivity)",
     "Stripe (SetupIntents, off-session PaymentIntents)",
-    "Our Change Foundation / Change API (charity disbursement)",
+    "Our Change Foundation API (charity disbursement)",
     "Firebase Auth + Firestore + Cloud Functions (deployed)",
     "OS-level shield (appears over any app, skip or pay)",
     "Scroll Jar — tolls accumulate, donate when ready",
@@ -727,7 +727,7 @@ function TechTraction() {
     { item: "Screen Time monitoring integrated", state: "DONE", color: "text-neon-green" },
     { item: "Stripe payment flow working", state: "DONE", color: "text-neon-green" },
     { item: "Doom metal UI/UX complete", state: "DONE", color: "text-neon-green" },
-    { item: "Charity API integrated (Change / Our Change Foundation)", state: "DONE", color: "text-neon-green" },
+    { item: "Charity API integrated (Our Change Foundation)", state: "DONE", color: "text-neon-green" },
     { item: "Firebase backend deployed (Cloud Functions live)", state: "DONE", color: "text-neon-green" },
     { item: "Leaderboard & friend invite system", state: "DONE", color: "text-neon-green" },
     { item: "Scroll Jar accumulation & donation flow", state: "DONE", color: "text-neon-green" },

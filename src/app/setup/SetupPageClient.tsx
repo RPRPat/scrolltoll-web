@@ -36,7 +36,7 @@ export default function SetupPageClient({
   const parsedAmount = Number(amountParam);
   const amount = Number.isFinite(parsedAmount) && parsedAmount > 0 ? parsedAmount : 2;
   const platformFee = useMemo(() => Number((amount * 0.07).toFixed(2)), [amount]);
-  const donationAmount = useMemo(() => Number((amount - platformFee).toFixed(2)), [amount, platformFee]);
+  const donationAmount = useMemo(() => Number(amount.toFixed(2)), [amount]);
 
   const [consentBilling, setConsentBilling] = useState(false);
   const [consentDisclosure, setConsentDisclosure] = useState(false);
@@ -129,10 +129,11 @@ export default function SetupPageClient({
               Your Toll Breakdown
             </p>
             <div className="mt-5 space-y-2 text-sm text-gray-300 sm:text-base">
-              <p className="text-xl font-bold text-white">{formatCurrency(amount)} per toll</p>
-              <p>|-- {formatCurrency(platformFee)} platform fee (7%)</p>
-              <p>|-- {formatCurrency(donationAmount)} charitable donation</p>
+              <p className="text-xl font-bold text-white">{formatCurrency(donationAmount)} donation amount</p>
+              <p>|-- {formatCurrency(donationAmount)} charitable donation (100%)</p>
               <p className="pl-6 text-neon-green">{"->"} {charity}</p>
+              <p>|-- {formatCurrency(platformFee)} platform fee (7%) charged separately</p>
+              <p>|-- standard payment processing costs charged separately</p>
             </div>
             <div className="mt-5 rounded-2xl border border-neon-green/15 bg-black/40 p-4 text-sm text-gray-400">
               <p>Donations received by</p>
@@ -167,10 +168,10 @@ export default function SetupPageClient({
                   className="mt-1 h-5 w-5 rounded border-white/20 bg-black text-neon-green focus:ring-neon-green"
                 />
                 <span>
-                  I understand that each toll includes a 7% platform fee retained by ScrollToll and
-                  that the remainder is a charitable contribution to my chosen nonprofit through Our
-                  Change Foundation (EIN 86-3353394). Tax receipts will be issued by Our Change
-                  Foundation.
+                  I understand that 100% of my donation is processed through Our Change Foundation
+                  (EIN 86-3353394) for my chosen nonprofit. ScrollToll charges a separate 7%
+                  platform fee and standard processing costs on top. These fees are not deducted
+                  from my donation amount.
                 </span>
               </label>
             </div>

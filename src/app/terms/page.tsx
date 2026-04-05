@@ -139,10 +139,11 @@ export default function TermsPage() {
               </p>
               <p className="mt-4">
                 <strong className="text-white">Platform fee:</strong> ScrollToll charges a
-                platform fee of 7% on each toll. This fee is retained by ScrollToll to cover
-                operations and development. Only the remaining 93% constitutes the charitable
-                contribution processed through Our Change Foundation. Only the charitable
-                contribution portion is tax-deductible.
+                platform fee equal to 7% of the donation amount, plus standard payment processing
+                costs. These fees are charged to the donor separately, on top of the donation
+                amount. 100% of the stated donation is delivered to the designated charity through
+                Our Change Foundation. Your full donation amount is eligible for a tax receipt from
+                Our Change Foundation. The platform fee and processing costs are not tax-deductible.
               </p>
               <p className="mt-4">
                 <strong className="text-white">Disbursement:</strong> Charitable donations are
@@ -181,10 +182,11 @@ export default function TermsPage() {
               </p>
               <p className="mt-4">
                 <strong className="text-white">Tax deductibility:</strong> Donations made through
-                ScrollToll may be tax-deductible to the extent permitted by law, but only the 93%
-                charitable contribution portion processed through Our Change Foundation is eligible
-                for a tax receipt. ScrollToll does not provide tax advice. Consult a tax
-                professional for guidance on your specific situation.
+                ScrollToll may be tax-deductible to the extent permitted by law. Your full donation
+                amount processed through Our Change Foundation is eligible for a tax receipt. The
+                ScrollToll platform fee and payment processing costs are not tax-deductible.
+                ScrollToll does not provide tax advice. Consult a tax professional for guidance on
+                your specific situation.
               </p>
             </section>
 

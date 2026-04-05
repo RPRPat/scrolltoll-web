@@ -157,8 +157,8 @@ export default function PrivacyPage() {
               <p className="mt-4">
                 <strong className="text-white">Our Change Foundation:</strong> Charitable donation
                 disbursement and tax receipts. They receive the donation amount, charity
-                selection, and your email so they can process the charitable contribution and issue
-                receipts for the charitable portion of each charge.
+                selection, and your email so they can process the donation and issue tax receipts
+                for your full donation amount.
               </p>
               <p className="mt-4">
                 <strong className="text-white">Firebase (Google):</strong> Authentication and

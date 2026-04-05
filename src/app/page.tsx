@@ -9,7 +9,7 @@ import GlowCard from "@/components/GlowCard";
 const faqItems = [
   {
     q: "Where does my money actually go?",
-    a: "7% of each toll is retained by ScrollToll as a platform fee to keep the app running and free to use. The remaining 93% is processed as a charitable donation through Our Change Foundation (EIN: 86-3353394) and granted to the nonprofit you chose. Only the charitable portion is tax-deductible.",
+    a: "100% of your donation goes directly to your chosen charity through Our Change Foundation (EIN: 86-3353394). ScrollToll charges a 7% platform fee and standard processing costs separately — these are never deducted from your donation.",
   },
   {
     q: "Is the app really free?",
@@ -17,7 +17,7 @@ const faqItems = [
   },
   {
     q: "Is my donation tax-deductible?",
-    a: "Yes, for US taxpayers, but only the 93% charitable portion of each toll is tax-deductible to the extent allowed by law. Our Change Foundation issues the tax receipt automatically via email after your Scroll Jar charge is processed.",
+    a: "Yes, for US taxpayers. Your full donation amount is tax-deductible to the extent allowed by law. The platform fee and processing costs are not tax-deductible. Our Change Foundation issues the tax receipt automatically via email after your Scroll Jar charge is processed.",
   },
   {
     q: "How does the screen time monitoring work?",
@@ -171,10 +171,10 @@ function Hero() {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 93% charitable portion may be tax-deductible (US)
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> Your full donation is tax-deductible (US)
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 93% goes to charity
+            <span className="text-neon-green" aria-hidden="true">&#10003;</span> 100% of your donation goes to charity
           </span>
           <span className="flex items-center gap-1.5">
             <span className="text-neon-green" aria-hidden="true">&#10003;</span> Free to use, always
@@ -300,8 +300,9 @@ function WhereMoneyGoes() {
             Where Your Money Goes.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            93% of every toll is processed as a charitable donation through Our Change Foundation.
-            Here&apos;s exactly how it breaks down.
+            100% of every donation is processed through Our Change Foundation for your chosen
+            charity. ScrollToll&apos;s platform fee and payment processing costs are charged
+            separately on top.
           </p>
         </motion.div>
 
@@ -314,35 +315,33 @@ function WhereMoneyGoes() {
           className="mx-auto mb-12 max-w-3xl"
         >
           <div className="mb-3 flex items-end justify-between text-sm">
-            <span className="text-gray-400">Your $2.00 toll</span>
-            <span className="font-mono text-neon-green">$2.00</span>
+            <span className="text-gray-400">Your $2.00 donation</span>
+            <span className="font-mono text-neon-green">$2.00 to charity</span>
           </div>
           <div className="flex h-12 overflow-hidden rounded-xl">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "93%" }}
+              whileInView={{ width: "100%" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
               className="flex items-center justify-center bg-neon-green"
             >
-              <span className="text-sm font-bold text-black">93% to Charity — $1.86</span>
+              <span className="text-sm font-bold text-black">100% to Charity — $2.00</span>
             </motion.div>
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: "7%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-              className="flex items-center justify-center bg-hot-pink"
-            >
-              <span className="hidden text-[10px] font-bold text-white sm:inline">7%</span>
-            </motion.div>
+          </div>
+          <div className="mt-3 rounded-xl border border-hot-pink/20 bg-hot-pink/10 px-4 py-3 text-xs text-hot-pink">
+            7% platform fee + standard payment processing costs are charged separately on top and
+            never deducted from your donation.
           </div>
           <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <span role="img" aria-label="green square">🟩</span> 93% to your chosen charity through Our Change Foundation
+              <span role="img" aria-label="green square">🟩</span> 100% to your chosen charity through Our Change Foundation
             </span>
             <span className="flex items-center gap-1.5">
-              <span role="img" aria-label="purple square">🟪</span> 7% keeps ScrollToll free for everyone
+              <span role="img" aria-label="purple square">🟪</span> 7% platform fee charged separately to keep ScrollToll free
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span role="img" aria-label="yellow square">🟨</span> Standard processing costs charged separately
             </span>
           </div>
         </motion.div>
@@ -365,9 +364,8 @@ function WhereMoneyGoes() {
             </div>
             <h3 className="font-heading text-lg font-bold text-white">Powered by Our Change Foundation</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
-              The charitable portion of each toll is processed through Our Change Foundation
-              (EIN: 86-3353394), a 501(c)(3) partner that handles charitable disbursement and tax
-              receipts for the donation portion of each charge.
+              100% of each donation is processed through Our Change Foundation (EIN: 86-3353394),
+              a 501(c)(3) partner that handles charitable disbursement and tax receipts.
             </p>
           </GlowCard>
 
@@ -377,9 +375,9 @@ function WhereMoneyGoes() {
             </div>
             <h3 className="font-heading text-lg font-bold text-white">Tax-Deductible (US)</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
-              The 93% charitable portion of each toll may be tax-deductible to the extent allowed
-              by law. Our Change Foundation sends your receipt automatically after your Scroll Jar
-              charge is processed.
+              Your full donation amount may be tax-deductible to the extent allowed by law. The
+              platform fee and processing costs are not tax-deductible. Our Change Foundation sends
+              your receipt automatically after your Scroll Jar charge is processed.
             </p>
           </GlowCard>
         </div>
@@ -395,7 +393,8 @@ function TaxSavingsCalculator() {
   const [triggersPerWeek, setTriggersPerWeek] = useState(3);
 
   const annualTollTotal = tollAmount * triggersPerWeek * 52;
-  const annualDonation = Math.round(annualTollTotal * 0.93);
+  const annualDonation = annualTollTotal;
+  const annualPlatformFee = Math.round(annualDonation * 0.07);
   const taxSavings = Math.round(annualDonation * 0.22);
   const mealsProvided = Math.round(annualDonation * 10);
 
@@ -491,15 +490,16 @@ function TaxSavingsCalculator() {
           </div>
           <div className="rounded-xl border border-hot-pink/20 bg-[#1a0d14] p-5 text-center">
             <p className="text-3xl font-black text-hot-pink md:text-4xl">
-              ${Math.round(annualTollTotal - taxSavings)}
+              ${Math.round(annualDonation + annualPlatformFee - taxSavings)}
             </p>
-            <p className="mt-1 text-sm text-gray-400">actual cost after deduction</p>
+            <p className="mt-1 text-sm text-gray-400">actual cost after deduction (excl. processing)</p>
           </div>
         </div>
 
         <p className="mb-6 text-center text-sm text-gray-500">
           *Based on Feeding America&apos;s estimate of ~10 meals per $1. Tax savings estimated at
-          a 22% marginal rate on the 93% charitable portion. Receipts issued by Our Change
+          a 22% marginal rate on your full donation amount. ScrollToll charges a separate 7%
+          platform fee and standard processing costs on top. Receipts issued by Our Change
           Foundation. This is not tax advice.
         </p>
 
@@ -800,9 +800,8 @@ function ImpactSection() {
             Your Worst Habit. Their Best Day.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            93% of each toll is processed as a charitable donation through Our Change Foundation to
-            a real, verified nonprofit you choose. Here are some of the charities ScrollToll users
-            can support.
+            100% of each donation is processed through Our Change Foundation to a real, verified
+            nonprofit you choose. Here are some of the charities ScrollToll users can support.
           </p>
         </motion.div>
 
