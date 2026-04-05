@@ -161,6 +161,12 @@ export default function PrivacyPage() {
                 for your full donation amount.
               </p>
               <p className="mt-4">
+                <strong className="text-white">No UK Entity Sharing:</strong> ScrollToll does not
+                share donation-level personal data with Scroll Toll Ltd (UK). Donation processing
+                records needed for charity disbursement and tax receipts are shared only with Our
+                Change Foundation and payment data is handled by Stripe.
+              </p>
+              <p className="mt-4">
                 <strong className="text-white">Firebase (Google):</strong> Authentication and
                 analytics. Google receives your authentication credentials and basic app usage
                 analytics. See Firebase&apos;s privacy policy at{" "}

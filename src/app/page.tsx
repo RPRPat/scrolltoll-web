@@ -300,7 +300,7 @@ function WhereMoneyGoes() {
             Where Your Money Goes.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            100% of every donation is processed through Our Change Foundation for your chosen
+            100% of every donation is delivered through Our Change Foundation for your chosen
             charity. ScrollToll&apos;s platform fee and payment processing costs are charged
             separately on top.
           </p>
@@ -347,7 +347,7 @@ function WhereMoneyGoes() {
         </motion.div>
 
         {/* Charity partners + trust signals */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(57,255,20,0.1)">
             <div className="mb-4 text-3xl">
               <span role="img" aria-label="house">🏠</span>
@@ -364,8 +364,9 @@ function WhereMoneyGoes() {
             </div>
             <h3 className="font-heading text-lg font-bold text-white">Powered by Our Change Foundation</h3>
             <p className="mt-3 text-sm leading-7 text-gray-400">
-              100% of each donation is processed through Our Change Foundation (EIN: 86-3353394),
-              a 501(c)(3) partner that handles charitable disbursement and tax receipts.
+              100% of each donation is delivered to your chosen charity through Our Change
+              Foundation (EIN: 86-3353394), a 501(c)(3) partner that handles charitable
+              disbursement and tax receipts.
             </p>
           </GlowCard>
 
@@ -378,6 +379,17 @@ function WhereMoneyGoes() {
               Your full donation amount may be tax-deductible to the extent allowed by law. The
               platform fee and processing costs are not tax-deductible. Our Change Foundation sends
               your receipt automatically after your Scroll Jar charge is processed.
+            </p>
+          </GlowCard>
+
+          <GlowCard className="border-white/10 bg-[#141432]" glowColor="rgba(204,255,0,0.1)" delay={0.3}>
+            <div className="mb-4 text-3xl">
+              <span role="img" aria-label="bullseye">🎯</span>
+            </div>
+            <h3 className="font-heading text-lg font-bold text-white">Donate Directly</h3>
+            <p className="mt-3 text-sm leading-7 text-gray-400">
+              Give any time, not just when scrolling. Donate directly to any of our partner
+              charities with the same 100%-to-charity guarantee.
             </p>
           </GlowCard>
         </div>
@@ -800,7 +812,7 @@ function ImpactSection() {
             Your Worst Habit. Their Best Day.
           </h2>
           <p className="mt-4 text-base text-gray-400">
-            100% of each donation is processed through Our Change Foundation to a real, verified
+            100% of each donation is delivered through Our Change Foundation to a real, verified
             nonprofit you choose. Here are some of the charities ScrollToll users can support.
           </p>
         </motion.div>

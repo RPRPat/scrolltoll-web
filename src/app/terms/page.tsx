@@ -151,6 +151,28 @@ export default function TermsPage() {
                 are provided by Our Change Foundation, not by ScrollToll.
               </p>
               <p className="mt-4">
+                <strong className="text-white">Refunds:</strong> Because donations are made to
+                third-party charitable organizations, refunds are generally not available once a
+                donation has been processed and disbursed. If you believe a charge was made in
+                error, contact us at{" "}
+                <a href="mailto:hello@scrolltoll.me" className="text-neon-green hover:text-white">
+                  hello@scrolltoll.me
+                </a>{" "}
+                within 7 days and we will investigate.
+              </p>
+              <p className="mt-4">
+                <strong className="text-white">Tax deductibility:</strong> Donations made through
+                ScrollToll may be tax-deductible to the extent permitted by law. Your full donation
+                amount processed through Our Change Foundation is eligible for a tax receipt. The
+                ScrollToll platform fee, payment processing costs, and any voluntary tips are not
+                tax-deductible. ScrollToll does not provide tax advice. Consult a tax professional
+                for guidance on your specific situation.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-neon-green">DONATION PROCESSING</h2>
+              <p className="mt-4">
                 All donations are to Our Change Foundation (EIN: 86-3353394), a nonprofit Section
                 501(c)(3) organization that makes grants to the nonprofits suggested by you here.
                 Our Change Foundation (OCF) will not charge platform fees against the donations and
@@ -170,23 +192,15 @@ export default function TermsPage() {
                 maximum length of time it takes OCF to send the donation or a grant of the
                 recommended donation to a recipient charity is 365 days.
               </p>
+            </section>
+
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-neon-green">TIP JAR</h2>
               <p className="mt-4">
-                <strong className="text-white">Refunds:</strong> Because donations are made to
-                third-party charitable organizations, refunds are generally not available once a
-                donation has been processed and disbursed. If you believe a charge was made in
-                error, contact us at{" "}
-                <a href="mailto:hello@scrolltoll.me" className="text-neon-green hover:text-white">
-                  hello@scrolltoll.me
-                </a>{" "}
-                within 7 days and we will investigate.
-              </p>
-              <p className="mt-4">
-                <strong className="text-white">Tax deductibility:</strong> Donations made through
-                ScrollToll may be tax-deductible to the extent permitted by law. Your full donation
-                amount processed through Our Change Foundation is eligible for a tax receipt. The
-                ScrollToll platform fee and payment processing costs are not tax-deductible.
-                ScrollToll does not provide tax advice. Consult a tax professional for guidance on
-                your specific situation.
+                ScrollToll offers an optional tipping feature that allows users to make voluntary
+                payments to support the ScrollToll platform. Tips are payments to Scroll Toll, LLC,
+                not charitable donations. Tips are not tax-deductible and are not processed through
+                Our Change Foundation.
               </p>
             </section>
 

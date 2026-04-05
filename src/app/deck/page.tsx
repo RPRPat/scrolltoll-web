@@ -374,6 +374,8 @@ function Market() {
               {[
                 "Subscription + donation platform fee",
                 "7% platform fee charged on top of each donation",
+                "Direct donations any time with 100%-to-charity guarantee",
+                "Voluntary tip jar on donation confirmations",
                 "B2B corporate wellness licensing",
                 "Sponsored charity placements",
                 "Social/viral sharing mechanics",
@@ -433,6 +435,22 @@ function Revenue() {
       color: "text-toxic-yellow",
       glow: "rgba(204,255,0,0.15)",
     },
+    {
+      icon: "🎁",
+      title: "VOLUNTARY TIPS",
+      desc: "Optional post-donation tips support ScrollToll directly. Tips are not charitable donations.",
+      when: "DAY 1",
+      color: "text-hot-pink",
+      glow: "rgba(255,46,151,0.15)",
+    },
+    {
+      icon: "🎯",
+      title: "DIRECT DONATIONS",
+      desc: "Users can donate anytime outside shield events. Same 100%-to-charity guarantee, plus separate fee revenue.",
+      when: "DAY 1",
+      color: "text-neon-green",
+      glow: "rgba(57,255,20,0.15)",
+    },
   ];
 
   return (
@@ -451,7 +469,7 @@ function Revenue() {
           <br />
           <span className="text-white/40">Not Just One Trick.</span>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {streams.map((stream, i) => (
             <GlowCard
               key={i}

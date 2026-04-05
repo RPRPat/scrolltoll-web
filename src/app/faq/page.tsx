@@ -4,7 +4,7 @@ const faqItems = [
   {
     question: "What is Our Change Foundation?",
     answer:
-      "Our Change Foundation is a 501(c)(3) donor-advised fund partner for our donation platform. They help distribute funds to charities across the United States.",
+      "Our Change Foundation is a 501(c)(3) donor-advised fund that processes all donations made through ScrollToll. They handle charity verification, fund distribution, and issue tax receipts. Learn more at getchange.io.",
   },
   {
     question: "Where does my donation go?",
@@ -14,7 +14,17 @@ const faqItems = [
   {
     question: "Are my donations tax-deductible?",
     answer:
-      "Your full donation amount is tax-deductible to the extent allowed by law. The platform fee and processing costs are not tax-deductible.",
+      "Your full donation amount is tax-deductible to the extent allowed by law. You'll receive a tax receipt from Our Change Foundation. The platform fee and processing costs are not tax-deductible.",
+  },
+  {
+    question: "Can I donate without being caught scrolling?",
+    answer:
+      "Yes. Use the Donate Now feature to give directly to any charity, any time. Direct donations use the same fee structure and count toward your leaderboard rank.",
+  },
+  {
+    question: "What about the tip option?",
+    answer:
+      "After each donation, you can optionally leave a tip to help keep ScrollToll free. Tips go to ScrollToll, not to charity, and are not tax-deductible. Tipping is completely optional.",
   },
   {
     question: "How long until my charity receives the funds?",
@@ -24,7 +34,7 @@ const faqItems = [
   {
     question: "How do I get a tax receipt?",
     answer:
-      "Tax receipts are sent to the email associated with your ScrollToll account after each Scroll Jar charge is processed.",
+      "Our Change Foundation issues tax receipts for all donations. You can access your donation history and annual receipt through the app's account section.",
   },
 ];
 

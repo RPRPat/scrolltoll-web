@@ -168,8 +168,8 @@ export default function SetupPageClient({
                   className="mt-1 h-5 w-5 rounded border-white/20 bg-black text-neon-green focus:ring-neon-green"
                 />
                 <span>
-                  I understand that 100% of my donation is processed through Our Change Foundation
-                  (EIN 86-3353394) for my chosen nonprofit. ScrollToll charges a separate 7%
+                  I understand that 100% of my donation is delivered to my chosen nonprofit
+                  through Our Change Foundation (EIN 86-3353394). ScrollToll charges a separate 7%
                   platform fee and standard processing costs on top. These fees are not deducted
                   from my donation amount.
                 </span>
