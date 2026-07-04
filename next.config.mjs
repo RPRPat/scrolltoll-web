@@ -23,6 +23,17 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // Apple's CDN requires the AASA file be served as application/json
+        // (it has no file extension, so it would default to octet-stream).
+        source: "/.well-known/apple-app-site-association",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/json",
+          },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           {
