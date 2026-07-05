@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { authHeaders, captureToken } from "@/lib/client-token";
 
 type AccountStatus = {
   hasPaymentSetup: boolean;
@@ -29,27 +30,29 @@ function titleCaseBrand(brand: string | null) {
   return brand.charAt(0).toUpperCase() + brand.slice(1);
 }
 
-type AccountPageClientProps = {
-  uid: string;
-};
-
-export default function AccountPageClient({ uid }: AccountPageClientProps) {
+export default function AccountPageClient() {
   const [status, setStatus] = useState<AccountStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyAction, setBusyAction] = useState<"update" | "pause" | "cancel" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
+    // Capture the Firebase ID token the app passed in the URL fragment.
+    const token = captureToken();
+    setHasToken(Boolean(token));
+
     async function loadStatus() {
-      if (!uid) {
+      if (!token) {
         setLoading(false);
-        setError("Missing account identifier. Open this page from the ScrollToll app.");
+        setError("Your secure session expired or is missing. Open this page from the ScrollToll app.");
         return;
       }
 
       try {
-        const response = await fetch(`/api/payment-status?uid=${encodeURIComponent(uid)}`, {
+        const response = await fetch("/api/payment-status", {
           cache: "no-store",
+          headers: { ...authHeaders() },
         });
         const payload = (await response.json()) as AccountStatus & { error?: string };
 
@@ -66,7 +69,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
     }
 
     void loadStatus();
-  }, [uid]);
+  }, []);
 
   const cardLabel = useMemo(() => {
     if (!status?.hasPaymentSetup || !status.cardLast4) {
@@ -77,7 +80,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
   }, [status]);
 
   async function startUpdate() {
-    if (!uid) {
+    if (!hasToken) {
       return;
     }
 
@@ -89,8 +92,8 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...authHeaders(),
         },
-        body: JSON.stringify({ uid }),
       });
 
       const payload = (await response.json()) as { error?: string; url?: string };
@@ -107,7 +110,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
   }
 
   async function togglePause(nextPaused: boolean) {
-    if (!uid || !status) {
+    if (!hasToken || !status) {
       return;
     }
 
@@ -119,9 +122,9 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          ...authHeaders(),
         },
         body: JSON.stringify({
-          uid,
           paused: nextPaused,
         }),
       });
@@ -144,7 +147,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
   }
 
   async function cancelPayment() {
-    if (!uid || !status) {
+    if (!hasToken || !status) {
       return;
     }
 
@@ -156,8 +159,8 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...authHeaders(),
         },
-        body: JSON.stringify({ uid }),
       });
 
       const payload = (await response.json()) as { error?: string };
@@ -227,7 +230,7 @@ export default function AccountPageClient({ uid }: AccountPageClientProps) {
             <button
               type="button"
               onClick={startUpdate}
-              disabled={loading || !uid || busyAction !== null}
+              disabled={loading || !hasToken || busyAction !== null}
               className="rounded-full border border-neon-green/30 px-5 py-3 text-sm font-bold text-neon-green transition-all hover:border-neon-green/60 hover:bg-neon-green/10 disabled:cursor-not-allowed disabled:border-white/10 disabled:text-white/30"
             >
               {busyAction === "update" ? "Opening Stripe..." : "Update Payment Method"}

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { authHeaders, captureToken } from "@/lib/client-token";
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-US", {
@@ -28,7 +29,6 @@ type SetupPageClientProps = {
 };
 
 export default function SetupPageClient({
-  uid,
   charity: charityParam,
   amount: amountParam,
 }: SetupPageClientProps) {
@@ -42,8 +42,15 @@ export default function SetupPageClient({
   const [consentDisclosure, setConsentDisclosure] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasToken, setHasToken] = useState(false);
 
-  const canContinue = uid.length > 0 && consentBilling && consentDisclosure && !isLoading;
+  // The iOS app passes a short-lived Firebase ID token in the URL fragment.
+  // Capture it (into sessionStorage, surviving the Stripe round-trip) on mount.
+  useEffect(() => {
+    setHasToken(Boolean(captureToken()));
+  }, []);
+
+  const canContinue = hasToken && consentBilling && consentDisclosure && !isLoading;
 
   async function handleCheckout() {
     if (!canContinue) {
@@ -58,9 +65,9 @@ export default function SetupPageClient({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...authHeaders(),
         },
         body: JSON.stringify({
-          uid,
           charity,
           amount,
         }),
@@ -184,9 +191,9 @@ export default function SetupPageClient({
           </p>
         ) : null}
 
-        {!uid ? (
+        {!hasToken ? (
           <p className="mt-5 rounded-2xl border border-hot-pink/30 bg-hot-pink/10 px-4 py-3 text-sm text-hot-pink">
-            Missing account identifier. Re-open this page from the ScrollToll app to continue.
+            Your secure session expired or is missing. Re-open this page from the ScrollToll app to continue.
           </p>
         ) : null}
 

@@ -1,18 +1,14 @@
 import { NextResponse } from "next/server";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
+import { AuthError, requireUid } from "@/lib/require-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { uid?: string };
-    const uid = body.uid?.trim();
-
-    if (!uid) {
-      return NextResponse.json({ error: "Missing uid" }, { status: 400 });
-    }
+    const uid = await requireUid(request);
 
     const stripe = await getStripe();
     const { ref, data } = await getUserPaymentProfile(uid);
@@ -36,7 +32,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to cancel payment";
-    return NextResponse.json({ error: message }, { status: 500 });
+    if (error instanceof AuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
+    console.error("cancel-payment error", error);
+    return NextResponse.json({ error: "Unable to cancel payment" }, { status: 500 });
   }
 }

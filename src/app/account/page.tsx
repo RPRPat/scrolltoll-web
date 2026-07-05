@@ -2,12 +2,8 @@ import AccountPageClient from "./AccountPageClient";
 
 export const dynamic = "force-dynamic";
 
-type AccountPageProps = {
-  searchParams?: {
-    uid?: string;
-  };
-};
-
-export default function AccountPage({ searchParams }: AccountPageProps) {
-  return <AccountPageClient uid={searchParams?.uid ?? ""} />;
+export default function AccountPage() {
+  // Identity is carried by the Firebase ID token in the URL fragment (read
+  // client-side), not by a query param — so this page takes no searchParams.
+  return <AccountPageClient />;
 }

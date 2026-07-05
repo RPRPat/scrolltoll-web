@@ -14,10 +14,10 @@ export async function POST(request: Request) {
     };
 
     const sessionId = body.sessionId?.trim();
-    const uid = body.uid?.trim();
+    const claimedUid = body.uid?.trim();
 
-    if (!sessionId || !uid) {
-      return NextResponse.json({ error: "Missing sessionId or uid" }, { status: 400 });
+    if (!sessionId) {
+      return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
     }
 
     const stripe = await getStripe();
@@ -27,6 +27,24 @@ export async function POST(request: Request) {
 
     if (session.mode !== "setup" || session.status !== "complete") {
       return NextResponse.json({ error: "Checkout session is not complete" }, { status: 400 });
+    }
+
+    // Identity comes from the Stripe session's own metadata (stamped at creation
+    // by an authenticated create-checkout-session call), NOT from the request
+    // body. This prevents an attacker from binding a completed session to a
+    // different user's account by supplying someone else's uid.
+    const uid =
+      typeof session.metadata?.firebaseUid === "string" ?
+        session.metadata.firebaseUid.trim() :
+        "";
+
+    if (!uid) {
+      return NextResponse.json({ error: "Session is not bound to an account" }, { status: 400 });
+    }
+
+    // If the client supplied a uid, it must match the session's bound account.
+    if (claimedUid && claimedUid !== uid) {
+      return NextResponse.json({ error: "Session does not belong to this account" }, { status: 403 });
     }
 
     const customerId = typeof session.customer === "string" ? session.customer : session.customer?.id;
@@ -88,7 +106,7 @@ export async function POST(request: Request) {
       cardLast4: resolvedPaymentMethod.card?.last4 ?? null,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to confirm setup";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("confirm-setup error", error);
+    return NextResponse.json({ error: "Unable to confirm setup" }, { status: 500 });
   }
 }

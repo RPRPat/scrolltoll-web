@@ -1,17 +1,13 @@
 import { NextResponse } from "next/server";
 import { getUserPaymentProfile } from "@/lib/payment-store";
+import { AuthError, requireUid } from "@/lib/require-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const uid = searchParams.get("uid")?.trim();
-
-    if (!uid) {
-      return NextResponse.json({ error: "Missing uid" }, { status: 400 });
-    }
+    const uid = await requireUid(request);
 
     const { data } = await getUserPaymentProfile(uid);
 
@@ -24,7 +20,10 @@ export async function GET(request: Request) {
       tollAmount: data?.tollAmount ?? null,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to retrieve payment status";
-    return NextResponse.json({ error: message }, { status: 500 });
+    if (error instanceof AuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
+    console.error("payment-status error", error);
+    return NextResponse.json({ error: "Unable to retrieve payment status" }, { status: 500 });
   }
 }
