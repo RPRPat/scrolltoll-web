@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ensureStripeCustomerId, getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 import { AuthError, requireUid } from "@/lib/require-auth";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,6 +29,13 @@ export async function POST(request: Request) {
         firebaseUid: uid,
       },
     });
+
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: uid,
+      event: "payment_update_session_created",
+    });
+    await posthog.shutdown();
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error) {
@@ -59,6 +67,16 @@ export async function PATCH(request: Request) {
       },
       { merge: true },
     );
+
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: uid,
+      event: "giving_status_updated",
+      properties: {
+        paused: body.paused,
+      },
+    });
+    await posthog.shutdown();
 
     return NextResponse.json({ success: true, paused: body.paused });
   } catch (error) {

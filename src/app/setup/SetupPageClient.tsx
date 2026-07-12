@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { authHeaders, captureToken } from "@/lib/client-token";
+import posthog from "posthog-js";
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-US", {
@@ -29,6 +30,7 @@ type SetupPageClientProps = {
 };
 
 export default function SetupPageClient({
+  uid,
   charity: charityParam,
   amount: amountParam,
 }: SetupPageClientProps) {
@@ -48,6 +50,10 @@ export default function SetupPageClient({
   // Capture it (into sessionStorage, surviving the Stripe round-trip) on mount.
   useEffect(() => {
     setHasToken(Boolean(captureToken()));
+    if (uid) {
+      posthog.identify(uid);
+    }
+    posthog.capture("payment_setup_viewed", { charity, amount });
   }, []);
 
   const canContinue = hasToken && consentBilling && consentDisclosure && !isLoading;
@@ -79,8 +85,10 @@ export default function SetupPageClient({
         throw new Error(payload.error || "Unable to open Stripe Checkout");
       }
 
+      posthog.capture("payment_setup_started", { charity, amount });
       window.location.assign(payload.url);
     } catch (checkoutError) {
+      posthog.captureException(checkoutError);
       setError(checkoutError instanceof Error ? checkoutError.message : "Unable to continue");
       setIsLoading(false);
     }

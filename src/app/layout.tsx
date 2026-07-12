@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { PHProvider } from "./providers";
 
 const headingFont = Space_Grotesk({
   subsets: ["latin"],
@@ -99,7 +100,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {children}
+        <PHProvider>{children}</PHProvider>
       </body>
     </html>
   );

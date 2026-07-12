@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -99,6 +100,16 @@ export async function POST(request: Request) {
     }
 
     await ref.set(updatePayload, { merge: true });
+
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: uid,
+      event: "payment_confirmed",
+      properties: {
+        card_brand: resolvedPaymentMethod.card?.brand ?? null,
+      },
+    });
+    await posthog.shutdown();
 
     return NextResponse.json({
       success: true,

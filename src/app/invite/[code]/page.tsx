@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { InviteActions } from "./InviteActions";
 
 export const metadata: Metadata = {
   title: "Join my ScrollToll leaderboard",
@@ -52,12 +53,7 @@ export default function InvitePage({ params }: InvitePageProps) {
       )}
 
       <div className="mt-10 flex w-full max-w-xs flex-col gap-4">
-        <a
-          href={appLink}
-          className="rounded-full bg-neon-green px-8 py-4 font-bold text-black transition-all hover:shadow-[0_0_32px_rgba(57,255,20,0.45)]"
-        >
-          Open in the ScrollToll app
-        </a>
+        <InviteActions appLink={appLink} code={code} />
         <Link
           href="/#waitlist"
           className="rounded-full border border-white/20 px-8 py-4 font-bold text-white/80 transition-colors hover:border-white/50 hover:text-white"

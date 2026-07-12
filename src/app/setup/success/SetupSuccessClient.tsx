@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import posthog from "posthog-js";
 
 const APP_REDIRECT_URL = "scrolltoll://payment-complete?success=true";
 
@@ -66,6 +67,10 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
 
         setStatus("success");
         setMessage("Payment method saved. Returning you to ScrollToll...");
+        if (uid) {
+          posthog.identify(uid);
+        }
+        posthog.capture("payment_setup_completed");
 
         fallbackTimer = setTimeout(() => {
           setShowFallbackLink(true);
@@ -75,6 +80,7 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
           window.location.href = APP_REDIRECT_URL;
         }, 2000);
       } catch (error) {
+        posthog.captureException(error);
         setStatus("error");
         setMessage(error instanceof Error ? error.message : "Unable to finalize setup");
         setShowFallbackLink(true);

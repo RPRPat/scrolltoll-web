@@ -11,6 +11,7 @@ const contentSecurityPolicy = `
   media-src 'self';
   font-src 'self';
   connect-src 'self';
+  worker-src 'self' blob:;
   upgrade-insecure-requests;
 `
   .replace(/\s{2,}/g, " ")
@@ -19,6 +20,23 @@ const contentSecurityPolicy = `
 const nextConfig = {
   images: {
     unoptimized: false,
+  },
+  skipTrailingSlashRedirect: true,
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/array/:path*",
+        destination: "https://us-assets.i.posthog.com/array/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ];
   },
   async headers() {
     return [

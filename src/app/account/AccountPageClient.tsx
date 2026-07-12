@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { authHeaders, captureToken } from "@/lib/client-token";
+import posthog from "posthog-js";
 
 type AccountStatus = {
   hasPaymentSetup: boolean;
@@ -102,8 +103,10 @@ export default function AccountPageClient() {
         throw new Error(payload.error || "Unable to open Stripe Checkout");
       }
 
+      posthog.capture("payment_update_started");
       window.location.assign(payload.url);
     } catch (updateError) {
+      posthog.captureException(updateError);
       setBusyAction(null);
       setError(updateError instanceof Error ? updateError.message : "Unable to update payment method");
     }
@@ -135,11 +138,13 @@ export default function AccountPageClient() {
         throw new Error(payload.error || "Unable to update giving status");
       }
 
+      posthog.capture(payload.paused ? "giving_paused" : "giving_resumed");
       setStatus({
         ...status,
         paused: payload.paused,
       });
     } catch (pauseError) {
+      posthog.captureException(pauseError);
       setError(pauseError instanceof Error ? pauseError.message : "Unable to update giving status");
     } finally {
       setBusyAction(null);
@@ -169,6 +174,7 @@ export default function AccountPageClient() {
         throw new Error(payload.error || "Unable to remove payment method");
       }
 
+      posthog.capture("payment_removed");
       setStatus({
         ...status,
         hasPaymentSetup: false,
@@ -177,6 +183,7 @@ export default function AccountPageClient() {
         cardLast4: null,
       });
     } catch (cancelError) {
+      posthog.captureException(cancelError);
       setError(cancelError instanceof Error ? cancelError.message : "Unable to remove payment method");
     } finally {
       setBusyAction(null);

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import posthog from "posthog-js";
 import GlowCard from "@/components/GlowCard";
 
 const faqItems = [
@@ -1007,6 +1008,7 @@ function Waitlist() {
           action="https://formspree.io/f/xzdjvnez"
           method="POST"
           className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row"
+          onSubmit={() => posthog.capture("waitlist_joined", { source: "homepage_section" })}
         >
           <input
             type="email"
@@ -1056,6 +1058,7 @@ function StickyMobileCTA() {
             action="https://formspree.io/f/xzdjvnez"
             method="POST"
             className="mx-auto flex max-w-md gap-2"
+            onSubmit={() => posthog.capture("waitlist_joined", { source: "mobile_sticky_cta" })}
           >
             <input
               type="email"

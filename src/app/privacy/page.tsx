@@ -87,7 +87,7 @@ export default function PrivacyPage() {
           <h1 className="mt-6 font-heading text-4xl font-bold text-neon-green sm:text-5xl">
             PRIVACY POLICY
           </h1>
-          <p className="mt-3 text-sm text-gray-500">Last updated: March 16, 2026</p>
+          <p className="mt-3 text-sm text-gray-500">Last updated: July 6, 2026</p>
 
           <div className="mt-10 space-y-8 text-base leading-8 text-gray-300">
             <p>
@@ -132,6 +132,17 @@ export default function PrivacyPage() {
                 information is used to display your donation history, calculate impact metrics, and
                 generate tax-related summaries.
               </p>
+              <h3 className="mt-6 font-heading text-xl font-semibold text-white">Usage &amp; Diagnostic Data</h3>
+              <p className="mt-2">
+                To understand how the app is used, find where people get stuck, and fix bugs, we
+                collect product-analytics and diagnostic data through PostHog. This includes
+                in-app events (such as screens viewed, features used, and donations completed),
+                anonymous device and session identifiers, crash and error reports, and session
+                recordings that capture how the app&apos;s screens are used. Typed text (such as
+                anything entered into a field) is masked in these recordings. This data is used
+                only to operate and improve ScrollToll — it is never used for advertising, and we
+                do not track you across other companies&apos; apps or websites.
+              </p>
             </section>
 
             <section>
@@ -175,6 +186,15 @@ export default function PrivacyPage() {
                   className="text-neon-green hover:text-white"
                 >
                   firebase.google.com/support/privacy
+                </a>.
+              </p>
+              <p className="mt-4">
+                <strong className="text-white">PostHog:</strong> Product analytics, session replay,
+                and error monitoring. PostHog processes in-app usage events, anonymous device and
+                session identifiers, crash reports, and masked session recordings so we can improve
+                the app and fix bugs. See PostHog&apos;s privacy policy at{" "}
+                <a href="https://posthog.com/privacy" className="text-neon-green hover:text-white">
+                  posthog.com/privacy
                 </a>.
               </p>
               <p className="mt-4">
