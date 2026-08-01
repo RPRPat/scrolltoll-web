@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
-    const uid = await requireUid(request);
+    const uid = await requireUid(request, "account");
 
     const stripe = await getStripe();
     const { ref, data } = await getUserPaymentProfile(uid);

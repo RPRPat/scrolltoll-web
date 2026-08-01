@@ -91,7 +91,7 @@ export default function PrivacyPage() {
 
           <div className="mt-10 space-y-8 text-base leading-8 text-gray-300">
             <p>
-              ScrollToll ("we", "us", "our") is operated by Rock Paper Reality, LLC. This Privacy
+              ScrollToll (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is operated by Rock Paper Reality, LLC. This Privacy
               Policy describes how we collect, use, and protect your information when you use the
               ScrollToll mobile application and website (scrolltoll.me).
             </p>
@@ -106,11 +106,14 @@ export default function PrivacyPage() {
               </p>
               <h3 className="mt-6 font-heading text-xl font-semibold text-white">Screen Time Data</h3>
               <p className="mt-2">
-                ScrollToll monitors your device screen time usage through Apple&apos;s Screen Time API
-                (DeviceActivityFramework). This data stays on your device and is processed locally
-                — we do not collect, transmit, or store your screen time data on our servers. We
-                only know that a donation was triggered, not which apps you were using or for how
-                long.
+                ScrollToll monitors your device screen time through Apple&apos;s Screen Time API
+                (DeviceActivity framework). Your detailed, per-app screen time data stays on your
+                device and is processed locally — we never collect or store which apps you use or
+                the raw usage timeline. To power streaks, impact metrics, and the optional
+                leaderboard, we do store a small set of <span className="text-white">aggregate</span>{" "}
+                figures on our servers: your total and weekly monitored minutes and a screen-time
+                reduction percentage. If you opt out of the leaderboard, these aggregates are not
+                published publicly.
               </p>
               <h3 className="mt-6 font-heading text-xl font-semibold text-white">Payment Information</h3>
               <p className="mt-2">
@@ -137,11 +140,11 @@ export default function PrivacyPage() {
                 To understand how the app is used, find where people get stuck, and fix bugs, we
                 collect product-analytics and diagnostic data through PostHog. This includes
                 in-app events (such as screens viewed, features used, and donations completed),
-                anonymous device and session identifiers, crash and error reports, and session
-                recordings that capture how the app&apos;s screens are used. Typed text (such as
-                anything entered into a field) is masked in these recordings. This data is used
-                only to operate and improve ScrollToll — it is never used for advertising, and we
-                do not track you across other companies&apos; apps or websites.
+                a pseudonymous account identifier after sign-in, and device and session
+                identifiers. Session replay is disabled, so ScrollToll does not send screen
+                recordings to PostHog. This data is used only to operate and improve ScrollToll —
+                it is never used for advertising, and we do not track you across other
+                companies&apos; apps or websites.
               </p>
             </section>
 
@@ -189,10 +192,10 @@ export default function PrivacyPage() {
                 </a>.
               </p>
               <p className="mt-4">
-                <strong className="text-white">PostHog:</strong> Product analytics, session replay,
-                and error monitoring. PostHog processes in-app usage events, anonymous device and
-                session identifiers, crash reports, and masked session recordings so we can improve
-                the app and fix bugs. See PostHog&apos;s privacy policy at{" "}
+                <strong className="text-white">PostHog:</strong> Product analytics. PostHog
+                processes in-app usage events, a pseudonymous account identifier after sign-in,
+                and device and session identifiers so we can understand feature usage and improve
+                the app. Session replay is disabled. See PostHog&apos;s privacy policy at{" "}
                 <a href="https://posthog.com/privacy" className="text-neon-green hover:text-white">
                   posthog.com/privacy
                 </a>.
@@ -207,10 +210,17 @@ export default function PrivacyPage() {
               <h2 className="font-heading text-2xl font-bold text-neon-green">DATA RETENTION</h2>
               <p className="mt-4">
                 We retain your account information and donation history for as long as your account
-                is active. You can request deletion of your account and associated data by emailing{" "}
+                is active. You can permanently delete your account from Settings in the ScrollToll
+                app. Deletion removes your ScrollToll profile, private app data, friend links,
+                public leaderboard profile, saved Stripe customer, and sign-in account. Stripe, Our
+                Change Foundation, recipient charities, and financial institutions may retain
+                transaction, receipt, fraud-prevention, tax, or legal records for the periods they
+                are required to keep them. These retained records are not used to reactivate your
+                ScrollToll account. You can also contact{" "}
                 <a href="mailto:hello@scrolltoll.me" className="text-neon-green hover:text-white">
                   hello@scrolltoll.me
-                </a>.
+                </a>{" "}
+                for help with deletion or retained-record questions.
               </p>
             </section>
 
@@ -229,8 +239,9 @@ export default function PrivacyPage() {
             <section>
               <h2 className="font-heading text-2xl font-bold text-neon-green">CHILDREN&apos;S PRIVACY</h2>
               <p className="mt-4">
-                ScrollToll is not intended for children under 13. We do not knowingly collect
-                personal information from children under 13.
+                ScrollToll is intended only for adults 18 and older, because it requires a payment
+                card and processes real charitable donations. We do not knowingly collect personal
+                information from anyone under 18.
               </p>
             </section>
 
@@ -238,7 +249,7 @@ export default function PrivacyPage() {
               <h2 className="font-heading text-2xl font-bold text-neon-green">CHANGES TO THIS POLICY</h2>
               <p className="mt-4">
                 We may update this Privacy Policy from time to time. We will notify you of material
-                changes by posting the updated policy on this page with a revised "Last updated"
+                changes by posting the updated policy on this page with a revised &quot;Last updated&quot;
                 date.
               </p>
             </section>

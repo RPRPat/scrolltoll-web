@@ -5,11 +5,15 @@
       {
         "appIDs": ["R9TC8VZTC8.com.rockpaperreality.DoomForGood"],
         "appID": "R9TC8VZTC8.com.rockpaperreality.DoomForGood",
-        "paths": ["/invite/*"],
+        "paths": ["/invite/*", "/payment/return"],
         "components": [
           {
             "/": "/invite/*",
             "comment": "Friend invite links open in the ScrollToll app"
+          },
+          {
+            "/": "/payment/return",
+            "comment": "Stripe returns to ScrollToll through an exclusive universal link"
           }
         ]
       }

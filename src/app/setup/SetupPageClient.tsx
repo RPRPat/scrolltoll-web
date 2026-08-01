@@ -24,13 +24,11 @@ function BrandMark() {
 }
 
 type SetupPageClientProps = {
-  uid: string;
   charity: string;
   amount: string;
 };
 
 export default function SetupPageClient({
-  uid,
   charity: charityParam,
   amount: amountParam,
 }: SetupPageClientProps) {
@@ -46,15 +44,10 @@ export default function SetupPageClient({
   const [error, setError] = useState<string | null>(null);
   const [hasToken, setHasToken] = useState(false);
 
-  // The iOS app passes a short-lived Firebase ID token in the URL fragment.
-  // Capture it (into sessionStorage, surviving the Stripe round-trip) on mount.
   useEffect(() => {
-    setHasToken(Boolean(captureToken()));
-    if (uid) {
-      posthog.identify(uid);
-    }
+    void captureToken("setup").then(setHasToken);
     posthog.capture("payment_setup_viewed", { charity, amount });
-  }, []);
+  }, [amount, charity]);
 
   const canContinue = hasToken && consentBilling && consentDisclosure && !isLoading;
 
@@ -131,7 +124,7 @@ export default function SetupPageClient({
             <ol className="mt-5 space-y-3 text-sm leading-7 text-gray-300 sm:text-base">
               <li>1. You set screen time limits.</li>
               <li>2. When you go over, a toll is added to your Scroll Jar.</li>
-              <li>3. Your jar empties weekly or at $10 - that's when you're charged.</li>
+              <li>3. Your jar empties weekly or at $10 - that&apos;s when you&apos;re charged.</li>
               <li>
                 4. Your donation goes to <span className="text-white">{charity}</span> through Our
                 Change Foundation.

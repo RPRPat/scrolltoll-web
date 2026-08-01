@@ -1,4 +1,9 @@
 import { getAdminAuth } from "@/lib/firebase-admin";
+import {
+  identityForWebSession,
+  type WebSessionPurpose,
+  WEB_SESSION_COOKIE,
+} from "@/lib/web-session";
 
 /**
  * Thrown when a request does not carry a valid Firebase ID token.
@@ -22,13 +27,27 @@ export class AuthError extends Error {
  * trust a `uid` from the request body/query — doing so is an IDOR, since
  * Firebase uids are observable (URLs, logs, the client) and not secret.
  */
-export async function requireUid(request: Request): Promise<string> {
+export async function requireUid(
+  request: Request,
+  expectedPurpose?: WebSessionPurpose,
+): Promise<string> {
   const header =
     request.headers.get("authorization") ?? request.headers.get("Authorization");
   const match = header?.match(/^Bearer\s+(.+)$/i);
 
   if (!match) {
-    throw new AuthError("Missing authentication token");
+    const cookieHeader = request.headers.get("cookie") ?? "";
+    const sessionToken = cookieHeader
+      .split(";")
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(`${WEB_SESSION_COOKIE}=`))
+      ?.slice(WEB_SESSION_COOKIE.length + 1);
+    const identity = sessionToken ? await identityForWebSession(sessionToken) : null;
+    if (identity && expectedPurpose && identity.purpose !== expectedPurpose) {
+      throw new AuthError("This secure session cannot be used for that action", 403);
+    }
+    if (identity) return identity.uid;
+    throw new AuthError("Missing or expired secure session");
   }
 
   const idToken = match[1].trim();

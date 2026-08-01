@@ -93,7 +93,7 @@ export default function TermsPage() {
             <p>
               Welcome to ScrollToll. By using our mobile application or website (scrolltoll.me),
               you agree to these Terms of Service. ScrollToll is operated by Rock Paper Reality,
-              LLC ("we", "us", "our").
+              LLC (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
             </p>
 
             <section>
@@ -231,7 +231,7 @@ export default function TermsPage() {
             <section>
               <h2 className="font-heading text-2xl font-bold text-neon-green">LIMITATION OF LIABILITY</h2>
               <p className="mt-4">
-                ScrollToll is provided "as is" without warranties of any kind. We are not liable
+                ScrollToll is provided &quot;as is&quot; without warranties of any kind. We are not liable
                 for any indirect, incidental, or consequential damages arising from your use of the
                 service. Our total liability is limited to the amount you have paid through the app
                 in the 12 months preceding any claim.

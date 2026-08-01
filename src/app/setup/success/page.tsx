@@ -3,17 +3,14 @@ import SetupSuccessClient from "./SetupSuccessClient";
 export const dynamic = "force-dynamic";
 
 type SetupSuccessPageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     session_id?: string;
-    uid?: string;
-  };
+    purpose?: string;
+  }>;
 };
 
-export default function SetupSuccessPage({ searchParams }: SetupSuccessPageProps) {
-  return (
-    <SetupSuccessClient
-      sessionId={searchParams?.session_id ?? ""}
-      uid={searchParams?.uid ?? ""}
-    />
-  );
+export default async function SetupSuccessPage({ searchParams }: SetupSuccessPageProps) {
+  const params = await searchParams;
+  const purpose = params?.purpose === "account" ? "account" : "setup";
+  return <SetupSuccessClient sessionId={params?.session_id ?? ""} purpose={purpose} />;
 }

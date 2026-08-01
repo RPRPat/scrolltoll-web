@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import posthog from "posthog-js";
 
-const APP_REDIRECT_URL = "scrolltoll://payment-complete?success=true";
+const APP_REDIRECT_URL = "https://www.scrolltoll.me/payment/return?success=true";
 
 function BrandMark() {
   return (
@@ -17,10 +17,10 @@ function BrandMark() {
 
 type SetupSuccessClientProps = {
   sessionId: string;
-  uid: string;
+  purpose: "setup" | "account";
 };
 
-export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClientProps) {
+export default function SetupSuccessClient({ sessionId, purpose }: SetupSuccessClientProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("Saving your payment method...");
   const [showFallbackLink, setShowFallbackLink] = useState(false);
@@ -42,7 +42,7 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
     let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
     async function finalizeSetup() {
-      if (!sessionId || !uid) {
+      if (!sessionId) {
         setStatus("error");
         setMessage("Missing payment confirmation details. Re-open this flow from ScrollToll.");
         return;
@@ -56,7 +56,7 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ sessionId, uid }),
+          body: JSON.stringify({ sessionId, purpose }),
         });
 
         const payload = (await response.json()) as { error?: string };
@@ -67,9 +67,6 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
 
         setStatus("success");
         setMessage("Payment method saved. Returning you to ScrollToll...");
-        if (uid) {
-          posthog.identify(uid);
-        }
         posthog.capture("payment_setup_completed");
 
         fallbackTimer = setTimeout(() => {
@@ -97,7 +94,7 @@ export default function SetupSuccessClient({ sessionId, uid }: SetupSuccessClien
         clearTimeout(fallbackTimer);
       }
     };
-  }, [sessionId, uid]);
+  }, [sessionId, purpose]);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#0A0A0A] px-6 py-8 text-white">

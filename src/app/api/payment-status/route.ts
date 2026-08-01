@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   try {
-    const uid = await requireUid(request);
+    const uid = await requireUid(request, "account");
 
     const { data } = await getUserPaymentProfile(uid);
 

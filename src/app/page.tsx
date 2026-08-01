@@ -159,7 +159,7 @@ function Hero() {
           Your doom scrolling just fed someone.
         </p>
         <p className="mt-5 max-w-2xl text-base leading-7 text-gray-400 sm:text-lg">
-          The app that turns your worst habit into someone else's best day. Set a screen time
+          The app that turns your worst habit into someone else&apos;s best day. Set a screen time
           limit. Blow past it. Pay the toll. Feed the world.
         </p>
 
@@ -459,7 +459,7 @@ function TaxSavingsCalculator() {
         {/* Triggers per week slider */}
         <div className="mb-10">
           <label className="mb-2 block text-center text-lg text-white">
-            Times you'll probably exceed your limit per week:{" "}
+            Times you&apos;ll probably exceed your limit per week:{" "}
             <span className="font-bold text-hot-pink">{triggersPerWeek}x</span>
           </label>
           <input

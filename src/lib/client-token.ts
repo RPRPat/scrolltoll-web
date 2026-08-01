@@ -1,67 +1,56 @@
 "use client";
 
-/**
- * Client-side handling of the Firebase ID token the iOS app passes when it
- * opens the setup/account pages.
- *
- * The token arrives in the URL *fragment* (`#token=...`) — fragments are never
- * sent to the server, never appear in Referer headers, and aren't stored in
- * server access logs. We capture it into sessionStorage (so it survives the
- * Stripe Checkout round-trip within the same SFSafariViewController session)
- * and immediately scrub it from the visible URL.
- */
+const LEGACY_TOKEN_KEY = "scrolltoll-legacy-firebase-token";
 
-const TOKEN_STORAGE_KEY = "st_id_token";
-
-/**
- * Pull the token from the URL fragment (or fall back to sessionStorage), then
- * strip it from the address bar. Call once on mount.
- */
-export function captureToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const hash = window.location.hash ?? "";
-  const match = hash.match(/(?:^#|&)token=([^&]+)/);
-
-  if (match) {
-    const token = decodeURIComponent(match[1]);
-    try {
-      window.sessionStorage.setItem(TOKEN_STORAGE_KEY, token);
-    } catch {
-      // sessionStorage may be unavailable (private mode); token stays in memory
-      // for this page load via the return value.
-    }
-    // Remove the token from the URL so it isn't bookmarked/screenshotted.
+export async function captureToken(purpose: "setup" | "account"): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+  const params = new URLSearchParams(window.location.search);
+  const nonce = params.get("nonce");
+  if (nonce) {
+    const response = await fetch("/api/session/exchange", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nonce, purpose }),
+    });
+    params.delete("nonce");
+    const query = params.toString();
     window.history.replaceState(
       null,
       "",
-      window.location.pathname + window.location.search,
+      `${window.location.pathname}${query ? `?${query}` : ""}`,
     );
-    return token;
+    return response.ok;
   }
 
-  try {
-    return window.sessionStorage.getItem(TOKEN_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-export function getStoredToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
+  // Migration bridge for already-installed app versions. New app builds never
+  // send this fragment; remove after the minimum supported iOS version uses
+  // createWebSessionNonce exclusively.
+  const legacyToken = new URLSearchParams(window.location.hash.slice(1)).get("token");
+  if (legacyToken) {
+    window.sessionStorage.setItem(LEGACY_TOKEN_KEY, legacyToken);
+    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+    return true;
   }
   try {
-    return window.sessionStorage.getItem(TOKEN_STORAGE_KEY);
+    if (window.sessionStorage.getItem(LEGACY_TOKEN_KEY)) return true;
   } catch {
-    return null;
+    // Continue with the HttpOnly session check when storage is unavailable.
   }
+
+  const response = await fetch(`/api/session/status?purpose=${purpose}`, {
+    cache: "no-store",
+    credentials: "same-origin",
+  });
+  return response.ok;
 }
 
-/** Authorization header for API calls, or an empty object if no token. */
 export function authHeaders(): Record<string, string> {
-  const token = getStoredToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  if (typeof window === "undefined") return {};
+  try {
+    const legacyToken = window.sessionStorage.getItem(LEGACY_TOKEN_KEY);
+    return legacyToken ? { Authorization: `Bearer ${legacyToken}` } : {};
+  } catch {
+    return {};
+  }
 }

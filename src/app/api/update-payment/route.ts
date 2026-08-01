@@ -13,7 +13,7 @@ function getBaseUrl() {
 
 export async function POST(request: Request) {
   try {
-    const uid = await requireUid(request);
+    const uid = await requireUid(request, "account");
 
     const stripe = await getStripe();
     const customerId = await ensureStripeCustomerId(uid);
@@ -23,10 +23,11 @@ export async function POST(request: Request) {
       mode: "setup",
       customer: customerId,
       payment_method_types: ["card"],
-      success_url: `${baseUrl}/setup/success?session_id={CHECKOUT_SESSION_ID}&uid=${encodeURIComponent(uid)}`,
-      cancel_url: `${baseUrl}/account?uid=${encodeURIComponent(uid)}`,
+      success_url: `${baseUrl}/setup/success?session_id={CHECKOUT_SESSION_ID}&purpose=account`,
+      cancel_url: `${baseUrl}/account`,
       metadata: {
         firebaseUid: uid,
+        purpose: "account",
       },
     });
 
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
-    const uid = await requireUid(request);
+    const uid = await requireUid(request, "account");
 
     const body = (await request.json()) as { paused?: boolean };
 

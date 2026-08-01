@@ -39,12 +39,10 @@ export default function AccountPageClient() {
   const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
-    // Capture the Firebase ID token the app passed in the URL fragment.
-    const token = captureToken();
-    setHasToken(Boolean(token));
-
     async function loadStatus() {
-      if (!token) {
+      const hasSession = await captureToken("account");
+      setHasToken(hasSession);
+      if (!hasSession) {
         setLoading(false);
         setError("Your secure session expired or is missing. Open this page from the ScrollToll app.");
         return;
@@ -54,6 +52,7 @@ export default function AccountPageClient() {
         const response = await fetch("/api/payment-status", {
           cache: "no-store",
           headers: { ...authHeaders() },
+          credentials: "same-origin",
         });
         const payload = (await response.json()) as AccountStatus & { error?: string };
 

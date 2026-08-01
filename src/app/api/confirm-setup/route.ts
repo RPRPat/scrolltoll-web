@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 import { getPostHogClient } from "@/lib/posthog-server";
+import { AuthError, requireUid } from "@/lib/require-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,15 +12,17 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
       sessionId?: string;
-      uid?: string;
+      purpose?: string;
     };
 
     const sessionId = body.sessionId?.trim();
-    const claimedUid = body.uid?.trim();
+    const purpose = body.purpose;
 
-    if (!sessionId) {
-      return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
+    if (!sessionId || (purpose !== "setup" && purpose !== "account")) {
+      return NextResponse.json({ error: "Missing or invalid confirmation details" }, { status: 400 });
     }
+
+    const authenticatedUid = await requireUid(request, purpose);
 
     const stripe = await getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
@@ -28,6 +31,10 @@ export async function POST(request: Request) {
 
     if (session.mode !== "setup" || session.status !== "complete") {
       return NextResponse.json({ error: "Checkout session is not complete" }, { status: 400 });
+    }
+
+    if (session.metadata?.purpose !== purpose) {
+      return NextResponse.json({ error: "Session purpose does not match" }, { status: 403 });
     }
 
     // Identity comes from the Stripe session's own metadata (stamped at creation
@@ -43,8 +50,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Session is not bound to an account" }, { status: 400 });
     }
 
-    // If the client supplied a uid, it must match the session's bound account.
-    if (claimedUid && claimedUid !== uid) {
+    if (authenticatedUid !== uid) {
       return NextResponse.json({ error: "Session does not belong to this account" }, { status: 403 });
     }
 
@@ -117,6 +123,9 @@ export async function POST(request: Request) {
       cardLast4: resolvedPaymentMethod.card?.last4 ?? null,
     });
   } catch (error) {
+    if (error instanceof AuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
     console.error("confirm-setup error", error);
     return NextResponse.json({ error: "Unable to confirm setup" }, { status: 500 });
   }
