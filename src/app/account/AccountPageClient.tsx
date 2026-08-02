@@ -249,8 +249,8 @@ export default function AccountPageClient() {
             <div>
               <p className="font-mono text-sm uppercase tracking-[0.3em] text-hot-pink">Pause Giving</p>
               <p className="mt-3 text-sm leading-7 text-gray-400">
-                When paused, ScrollToll can still track tolls, but your weekly or $10 Scroll Jar charge
-                should not run until you turn giving back on.
+                When paused, ScrollToll can still track tolls, but scheduled Scroll Jar charges
+                should not run until you turn giving back on. Jars below $5 roll over.
               </p>
             </div>
             <button

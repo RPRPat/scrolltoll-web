@@ -77,6 +77,10 @@ export default function SetupSuccessClient({ sessionId, purpose }: SetupSuccessC
           window.location.href = APP_REDIRECT_URL;
         }, 2000);
       } catch (error) {
+        posthog.capture("payment_setup_failed", {
+          stage: "confirmation",
+          failure_category: error instanceof Error ? error.name : "unknown",
+        });
         posthog.captureException(error);
         setStatus("error");
         setMessage(error instanceof Error ? error.message : "Unable to finalize setup");

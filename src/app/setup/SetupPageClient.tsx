@@ -26,11 +26,13 @@ function BrandMark() {
 type SetupPageClientProps = {
   charity: string;
   amount: string;
+  cancelled: boolean;
 };
 
 export default function SetupPageClient({
   charity: charityParam,
   amount: amountParam,
+  cancelled,
 }: SetupPageClientProps) {
   const charity = charityParam.trim() || "Your selected nonprofit";
   const parsedAmount = Number(amountParam);
@@ -47,7 +49,10 @@ export default function SetupPageClient({
   useEffect(() => {
     void captureToken("setup").then(setHasToken);
     posthog.capture("payment_setup_viewed", { charity, amount });
-  }, [amount, charity]);
+    if (cancelled) {
+      posthog.capture("payment_setup_cancelled", { stage: "stripe_checkout" });
+    }
+  }, [amount, cancelled, charity]);
 
   const canContinue = hasToken && consentBilling && consentDisclosure && !isLoading;
 
@@ -81,6 +86,10 @@ export default function SetupPageClient({
       posthog.capture("payment_setup_started", { charity, amount });
       window.location.assign(payload.url);
     } catch (checkoutError) {
+      posthog.capture("payment_setup_failed", {
+        stage: "checkout_session",
+        failure_category: checkoutError instanceof Error ? checkoutError.name : "unknown",
+      });
       posthog.captureException(checkoutError);
       setError(checkoutError instanceof Error ? checkoutError.message : "Unable to continue");
       setIsLoading(false);
@@ -124,7 +133,10 @@ export default function SetupPageClient({
             <ol className="mt-5 space-y-3 text-sm leading-7 text-gray-300 sm:text-base">
               <li>1. You set screen time limits.</li>
               <li>2. When you go over, a toll is added to your Scroll Jar.</li>
-              <li>3. Your jar empties weekly or at $10 - that&apos;s when you&apos;re charged.</li>
+              <li>
+                3. ScrollToll checks your jar on your chosen schedule. Jars below $5 roll over;
+                you can still empty the jar manually anytime.
+              </li>
               <li>
                 4. Your donation goes to <span className="text-white">{charity}</span> through Our
                 Change Foundation.
@@ -162,9 +174,9 @@ export default function SetupPageClient({
                   className="mt-1 h-5 w-5 rounded border-white/20 bg-black text-neon-green focus:ring-neon-green"
                 />
                 <span>
-                  I authorize ScrollToll to charge my saved payment method on a weekly basis
-                  (or when my Scroll Jar reaches $10) for toll amounts I incur by exceeding my
-                  screen time limits.
+                  I authorize ScrollToll to charge my saved payment method on my selected giving
+                  schedule once my Scroll Jar contains at least $5. Smaller jars roll over to the
+                  next scheduled check. I can also review and empty my jar manually at any time.
                 </span>
               </label>
 

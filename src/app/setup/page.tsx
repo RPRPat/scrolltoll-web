@@ -6,6 +6,7 @@ type SetupPageProps = {
   searchParams?: Promise<{
     charity?: string;
     amount?: string;
+    cancelled?: string;
   }>;
 };
 
@@ -15,6 +16,7 @@ export default async function SetupPage({ searchParams }: SetupPageProps) {
     <SetupPageClient
       charity={params?.charity ?? ""}
       amount={params?.amount ?? ""}
+      cancelled={params?.cancelled === "1"}
     />
   );
 }

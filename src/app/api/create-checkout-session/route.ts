@@ -49,7 +49,9 @@ export async function POST(request: Request) {
       customer: customerId,
       payment_method_types: ["card"],
       success_url: `${baseUrl}/setup/success?session_id={CHECKOUT_SESSION_ID}&purpose=setup`,
-      cancel_url: `${baseUrl}/setup?charity=${encodeURIComponent(charity)}&amount=${encodeURIComponent(normalizedAmount)}`,
+      cancel_url:
+        `${baseUrl}/setup?charity=${encodeURIComponent(charity)}` +
+        `&amount=${encodeURIComponent(normalizedAmount)}&cancelled=1`,
       metadata: {
         firebaseUid: uid,
         purpose: "setup",
