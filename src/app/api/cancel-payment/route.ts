@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
 import { AuthError, requireUid } from "@/lib/require-auth";
-import { getPostHogClient } from "@/lib/posthog-server";
+import { getPostHogClient, withEnvironment } from "@/lib/posthog-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -35,6 +35,7 @@ export async function POST(request: Request) {
     posthog.capture({
       distinctId: uid,
       event: "payment_cancelled",
+      properties: withEnvironment(),
     });
     await posthog.shutdown();
 

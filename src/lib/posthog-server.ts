@@ -7,3 +7,12 @@ export function getPostHogClient() {
     flushInterval: 0,
   });
 }
+
+export function withEnvironment(properties: Record<string, unknown> = {}) {
+  const environment = process.env.NEXT_PUBLIC_APP_ENVIRONMENT ?? "staging";
+  return {
+    ...properties,
+    environment,
+    release_channel: environment === "production" ? "production_web" : "staging_web",
+  };
+}

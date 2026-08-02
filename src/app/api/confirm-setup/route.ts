@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getUserPaymentProfile } from "@/lib/payment-store";
 import { getStripe } from "@/lib/stripe";
-import { getPostHogClient } from "@/lib/posthog-server";
+import { getPostHogClient, withEnvironment } from "@/lib/posthog-server";
 import { AuthError, requireUid } from "@/lib/require-auth";
 
 export const runtime = "nodejs";
@@ -111,9 +111,9 @@ export async function POST(request: Request) {
     posthog.capture({
       distinctId: uid,
       event: "payment_confirmed",
-      properties: {
+      properties: withEnvironment({
         card_brand: resolvedPaymentMethod.card?.brand ?? null,
-      },
+      }),
     });
     await posthog.shutdown();
 
