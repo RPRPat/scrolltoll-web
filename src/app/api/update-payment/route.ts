@@ -3,13 +3,10 @@ import { ensureStripeCustomerId, getUserPaymentProfile } from "@/lib/payment-sto
 import { getStripe } from "@/lib/stripe";
 import { AuthError, requireUid } from "@/lib/require-auth";
 import { getPostHogClient, withEnvironment } from "@/lib/posthog-server";
+import { getBaseUrl } from "@/lib/base-url";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_BASE_URL ?? "https://scrolltoll.me";
-}
 
 export async function POST(request: Request) {
   try {

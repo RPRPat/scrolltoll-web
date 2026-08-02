@@ -18,6 +18,15 @@ function getServiceAccount() {
   }
 
   const parsedKey = JSON.parse(rawKey) as ServiceAccountPayload;
+  const environment = process.env.NEXT_PUBLIC_APP_ENVIRONMENT ?? "staging";
+  const expectedProject =
+    environment === "production" ? "scrolltoll-238a6" : "scrolltoll-staging";
+
+  if (parsedKey.project_id !== expectedProject) {
+    throw new Error(
+      `Firebase credential project mismatch for ${environment}: expected ${expectedProject}`,
+    );
+  }
 
   return {
     projectId: parsedKey.project_id,

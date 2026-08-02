@@ -7,6 +7,8 @@ ScrollToll's marketing, invitation, payment setup, and account-management site.
 - Vercel Preview is staging. It must use Firebase `scrolltoll-staging`, Stripe test keys, and the staging PostHog project token.
 - Vercel Production is production. Do not add live Stripe keys until the live-payment launch checklist has been approved.
 - Never share a Firebase service-account key between staging and production.
+- Runtime guards reject a Firebase project or Stripe key that does not match the configured environment/mode.
+- Preview Stripe return URLs use Vercel's deployment URL automatically.
 
 Copy `.env.example` to `.env.local` for local work. Local environment files and the `.vercel` project link are intentionally ignored by Git.
 
